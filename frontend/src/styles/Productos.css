@@ -1,0 +1,217 @@
+/* Estilos generales para la sección de productos */
+.products-container {
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Alinea los elementos en columna */
+  align-items: center; /* Centra todos los elementos horizontalmente */
+}
+
+.grid-x {
+  margin-bottom: 1.5rem; /* Espacio entre filas en el contenedor de la cuadrícula */
+}
+
+.cell {
+  margin-bottom: 1.5rem; /* Espacio entre tarjetas dentro de la cuadrícula */
+}
+
+.imagen-productos {
+  border: 3px solid #fff;
+}
+
+.product-card {
+  position: relative;
+  flex: 1 1 300px; /* Las tarjetas crecen para llenar el espacio, con un ancho mínimo de 300px */
+  max-width: 30%; /* Límite máximo del 30% del contenedor */
+  background-color: #fefefe;
+  border: 1px solid #e6e6e6;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  overflow: hidden; /* Asegura que el pseudo-elemento no sobresalga */
+  transition: all 0.3s ease; /* Para animar la transición de hover */
+  box-sizing: border-box; /* Para incluir padding y border en el ancho total */
+}
+
+.product-card-thumbnail,
+.prueba-card-title,
+.prueba-card-desc,
+.prueba-card-price {
+  position: relative;
+  z-index: 2;
+}
+
+.product-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%; /* Esto cubre el 30% superior de la tarjeta */
+  background-color: #ff6eb9; /* Cambia este color por el que prefieras */
+  z-index: 1; /* Asegura que el pseudo-elemento esté por detrás del contenido */
+  transition: background-color 0.3s ease; /* Transición suave del color */
+}
+
+.product-card-thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  overflow: hidden;
+}
+
+.product-card-thumbnail img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Estilos mejorados para .prueba-card-title */
+.prueba-card-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem; /* Tamaño de fuente aumentado */
+  font-weight: 700; /* Fuente más gruesa */
+  text-align: center; /* Centrar el texto */
+  margin: 1rem 0; /* Espaciado alrededor */
+  color: #fa52a0; /* Color principal */
+  transition: color 0.3s ease, transform 0.3s ease; /* Transición suave */
+}
+
+.prueba-card-title:hover {
+  color: #ff6eb9; /* Cambia el color al pasar el ratón */
+  transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+}
+
+/* Estilos mejorados para .prueba-card-desc */
+.prueba-card-desc {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem; /* Tamaño de fuente aumentado */
+  color: #333; /* Color de texto más oscuro para mejor legibilidad */
+  line-height: 1.6; /* Espaciado entre líneas */
+  text-align: center; /* Centrar el texto */
+  margin: 1rem 0; /* Espaciado alrededor */
+  background: rgba(255, 255, 255, 0.8); /* Fondo ligero */
+  padding: 10px; /* Espaciado interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: background 0.3s ease; /* Transición suave */
+}
+
+.prueba-card-desc:hover {
+  background: rgba(255, 255, 255, 1); /* Fondo más oscuro al pasar el ratón */
+}
+
+/* Estilos mejorados para .prueba-card-price */
+.prueba-card-price {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem; /* Tamaño de fuente aumentado */
+  font-weight: 600; /* Fuente más gruesa */
+  color: #fa52a0; /* Color principal */
+  text-align: center; /* Centrar el texto */
+  margin: 1rem 0; /* Espaciado alrededor */
+  background: #f8f9fa; /* Fondo ligero */
+  padding: 10px 15px; /* Espaciado interno */
+  border-left: 5px solid #fa52a0; /* Borde decorativo */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: background 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.prueba-card-price:hover {
+  background: #fa52a0; /* Fondo principal al pasar el ratón */
+  color: #fff; /* Color del texto al pasar el ratón */
+}
+
+.product-card:hover::before {
+  background-color: #a180e1;
+}
+
+.prueba-card-sale {
+  color: #cacaca;
+  display: inline-block;
+  font-size: 0.85rem;
+  margin-left: 0.3rem;
+  text-decoration: line-through;
+}
+
+.btn-comprar {
+  background-color: #ff6eb9; /* Verde estándar */
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 1rem;
+  margin: 4px 2px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center; /* Centra el botón horizontalmente */
+  width: 100%; /* Asegura que ocupe el ancho completo del contenedor padre */
+  transition: all 0.3s ease;
+}
+
+.btn-comprar:hover {
+  background-color: #a180e1;
+}
+
+.productos-grande {
+  color: #fa52a0; /* Color base del texto */
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 70px; /* Tamaño dinámico basado en el ancho de la pantalla */
+  letter-spacing: 1.5px; /* Espaciado elegante entre letras */
+  text-transform: uppercase; /* Todo el texto en mayúsculas para un estilo más formal */
+  -webkit-text-stroke: 2px #fff; /* Borde fino del texto para dar un toque moderno */
+  background: linear-gradient(
+    135deg,
+    #fa52a0 0%,
+    #ff96c8 100%
+  ); /* Degradado suave */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Relleno del texto con el degradado */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); /* Sombra sutil para darle profundidad */
+  margin-top: 20px; /* Espaciado superior para dar aire al título */
+}
+
+/* Para pantallas medianas (tabletas y dispositivos similares) */
+@media (max-width: 768px) {
+  .product-card {
+    max-width: 45%; /* Ajusta el ancho máximo para que quepan dos tarjetas en fila */
+  }
+}
+
+/* Para pantallas pequeñas (teléfonos móviles) */
+@media (max-width: 480px) {
+  .product-card {
+    max-width: 100%; /* Las tarjetas ocuparán todo el ancho */
+    margin-bottom: 1rem; /* Espacio inferior entre tarjetas */
+  }
+
+  .product-card-thumbnail {
+    height: 150px; /* Reduce la altura de las imágenes */
+  }
+
+  .product-card-thumbnail img {
+    width: 130px;
+    height: 130px; /* Ajusta el tamaño de la imagen */
+  }
+
+  .prueba-card-title {
+    font-size: 1rem; /* Reduce el tamaño de la fuente */
+  }
+
+  .prueba-card-desc {
+    font-size: 0.75rem; /* Ajusta el tamaño de la descripción */
+  }
+
+  .productos-grande {
+    font-weight: 300px;
+    font-size: 50px; /* Tamaño dinámico basado en el ancho de la pantalla */
+  }
+}

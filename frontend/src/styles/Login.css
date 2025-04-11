@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el contenedor principal ocupe todo el alto de la ventana */
+}
+
+.login-container {
+  flex: 1; /* Permite que el contenedor principal ocupe el espacio disponible */
+  display: flex;
+  justify-content: center; /* Centra el formulario horizontalmente */
+  align-items: center; /* Centra el formulario verticalmente */
+  padding: 20px; /* Espaciado alrededor del formulario */
+}
+
+.sign-in-form {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #fafafa;
+  width: 400px; /* Reducido para ajustarse mejor a un tamaño de login normal */
+  height: auto; /* Adaptable al contenido */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para el formulario */
+}
+
+.sign-in-form h4 {
+  color: #fa52a0;
+  margin-bottom: 0.8rem; /* Reducido el margen inferior */
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sign-in-form label {
+  text-transform: uppercase;
+  color: #fa52a0;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 0.8rem; /* Reducido el margen inferior */
+}
+
+.sign-in-form input {
+  color: #000;
+}
+
+.sign-in-form input:focus {
+  opacity: .8;
+}
+
+.logo-container-login {
+  margin-top: -60px; /* Ajustado para reducir el espacio entre el logo y el formulario */
+  border-radius: 50%;
+  width: 200px; /* Tamaño más pequeño para el logo */
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-bottom: 15px; /* Menos espacio debajo del logo */
+}
+
+.logo-img {
+  width: 100%; /* Ajusta la imagen al ancho del contenedor */
+  height: 100%; /* Ajusta la imagen a la altura del contenedor */
+  object-fit: cover;
+}
+
+.sign-in-form-username,
+.sign-in-form-password {
+  border-radius: 30px;
+  border: none;
+  transition: all ease .4s;
+  margin-bottom: 1rem; /* Reduce el espacio entre campos */
+  color: #fa52a0;
+  background-color: #ffffff99;
+}
+
+.sign-in-form-button {
+  border-radius: 30px;
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: #fa52a0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+  padding: 0.9rem; /* Ajusta el tamaño del botón */
+  transition: all ease .4s;
+  margin-top: 1rem;
+}
+
+.sign-in-form-button:hover {
+  background-color: #a180e1;
+  border-color: #a180e1;
+}
+
+/* Para pantallas medianas (tabletas y dispositivos similares) */
+@media (max-width: 768px) {
+  .sign-in-form {
+    width: 500px; /* Ajustado para pantallas medianas */
+    padding: 1rem; /* Ajusta el relleno para optimizar el espacio */
+  }
+
+  .logo-container-login {
+    width: 180px;
+    height: 180px; /* Reduce el tamaño del contenedor del logo */
+  }
+}
+
+.login-registrarse {
+  text-align: center;
+  font-size: 18px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.link {
+  font-size: 18px;
+}
+
+.login-registrarse {
+  color: #000; /* Color negro para el texto */
+  margin-top: 1rem; /* Espacio superior opcional */
+}
+
+.login-registrarse .link {
+  color: #fa52a0; /* Color rosado inicial para el enlace */
+  text-decoration: none; /* Elimina el subrayado predeterminado */
+  transition: color 0.3s ease; /* Suaviza el cambio de color */
+}
+
+.login-registrarse .link:hover {
+  color: #a180e1; /* Color morado al pasar el cursor */
+}
+
+
+/* Para pantallas pequeñas (teléfonos móviles) */
+@media (max-width: 480px) {
+  .sign-in-form {
+    width: 325px; /* La forma ocupa casi todo el ancho de la pantalla */
+    padding: 1rem 1rem; /* Reduce el padding para un mejor ajuste */
+  }
+
+  .sign-in-form h4 {
+    font-size: 1.2rem; /* Reduce el tamaño de la fuente del título */
+    margin-bottom: 0.5rem; /* Reduce el margen inferior */
+  }
+
+  .logo-container-login {
+    width: 150px;
+    height: 150px; /* Reduce más el tamaño del contenedor del logo */
+  }
+
+  .sign-in-form-username,
+  .sign-in-form-password {
+    margin-bottom: 1rem; /* Reduce aún más el margen entre campos */
+  }
+
+  .sign-in-form-button {
+    padding: 0.75rem; /* Ajusta el tamaño del botón */
+    font-size: 0.9rem; /* Reduce el tamaño de la fuente */
+  }
+}

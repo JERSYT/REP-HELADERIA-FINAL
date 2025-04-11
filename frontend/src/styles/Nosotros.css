@@ -1,0 +1,129 @@
+.app-container {
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.titulo-grande {
+  color: #fa52a0; /* Color base del texto */
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 70px; /* Tamaño dinámico basado en el ancho de la pantalla */
+  letter-spacing: 1.5px; /* Espaciado elegante entre letras */
+  text-transform: uppercase; /* Todo el texto en mayúsculas para un estilo más formal */
+  -webkit-text-stroke: 2px #fff; /* Borde fino del texto para dar un toque moderno */
+  background: linear-gradient(
+    135deg,
+    #fa52a0 0%,
+    #ff96c8 100%
+  ); /* Degradado suave */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Relleno del texto con el degradado */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); /* Sombra sutil para darle profundidad */
+  margin-top: 20px; /* Espaciado superior para dar aire al título */
+}
+
+.product-card-title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: #000;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.logo-container {
+  margin-top: -50px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  margin-top: 2px;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.mission-vision-container {
+  background-color: white;
+  border-radius: 20px;
+  padding: 35px;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.subtitulos {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: #333;
+  margin: 20px 0;
+  text-transform: capitalize;
+}
+
+.letra-parrafo-1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  text-align: justify;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  font-size: 1.15rem;
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  .titulo-grande {
+    font-size: 60px;
+  }
+  .logo-container {
+    width: 200px;
+    height: 200px;
+  }
+  .mission-vision-container {
+    padding: 30px;
+  }
+  .subtitulos {
+    font-size: 1.5rem;
+  }
+  .letra-parrafo-1 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo-grande {
+    font-size: 50px;
+  }
+  .logo-container {
+    width: 150px;
+    height: 150px;
+  }
+  .mission-vision-container {
+    padding: 20px;
+  }
+  .subtitulos {
+    font-size: 1.3rem;
+  }
+  .letra-parrafo-1 {
+    font-size: 0.95rem;
+  }
+}

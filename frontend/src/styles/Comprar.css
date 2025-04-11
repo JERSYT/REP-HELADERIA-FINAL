@@ -1,0 +1,249 @@
+/* Sistema de grid */
+.row {
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.columns {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  flex: 0 0 auto;
+}
+
+.medium-6 {
+  width: 50%;
+}
+
+/* Solo añadimos estos dos selectores para separar las columnas */
+.medium-6:first-child {
+  padding-right: 40px;
+}
+
+.medium-6:last-child {
+  padding-left: 40px;
+}
+
+.large-5 {
+  width: 41.66667%;
+}
+
+.small-3 {
+  width: 25%;
+}
+
+.small-9 {
+  width: 75%;
+}
+
+.small-up-4 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.small-up-4 .column {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+/* Imágenes */
+.large-image {
+  width: 99%;
+  height: auto;
+}
+
+.small-thumbnails .small-image {
+  width: 130px;
+  height: auto;
+  margin-top: 10px;
+}
+
+.small-thumbnails {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Thumbnail styles */
+.thumbnail {
+  border: 4px solid #fefefe;
+  box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.2);
+  display: inline-block;
+  line-height: 0;
+  max-width: 100%;
+  transition: box-shadow 0.2s ease-out;
+  border-radius: 0;
+  margin-bottom: 1rem;
+}
+
+.thumbnail:hover {
+  box-shadow: 0 0 6px 1px rgba(33, 153, 232, 0.5);
+}
+
+/* Título y textos */
+.titulo-compra {
+  color: #fa52a0;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  -webkit-text-stroke: 2px #fff;
+  background: linear-gradient(135deg, #fa52a0 0%, #ff96c8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
+}
+
+.descripcion-compra {
+  font-family: "Poppins", sans-serif;
+  color: #555;
+  font-weight: 400;
+  font-size: 18px;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+  background: #f8f9fa; /* Fondo ligero */
+  padding: 15px; /* Espaciado alrededor del texto */
+  border-left: 5px solid #fa52a0; /* Borde decorativo */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Precio */
+.precio-comprar {
+  font-family: "Poppins", sans-serif;
+  color: #fa52a0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: #f8f9fa;
+  padding: 10px 15px;
+  border-left: 5px solid #fa52a0;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Formularios */
+label {
+  display: block;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: normal;
+  line-height: 1.8;
+  color: #0a0a0a;
+  font-family: "Poppins", sans-serif;
+}
+
+label.middle {
+  margin: 0;
+  padding: 0.5625rem 0;
+}
+
+input[type="number"] {
+  display: block;
+  box-sizing: border-box;
+  width: 24%;
+  height: 2.4375rem;
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px solid #cacaca;
+  margin: 0 0 1rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #0a0a0a;
+  background-color: #fefefe;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+  border-radius: 0;
+  transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+}
+
+input[type="number"]:focus {
+  border-color: #8a8a8a;
+  box-shadow: 0 0 5px #cacaca;
+}
+
+/* Botón */
+.button {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 1rem 0;
+  padding: 0.85em 1em;
+  border: 1px solid transparent;
+  border-radius: 0;
+  transition: background-color 0.25s ease-out;
+  font-size: 0.9rem;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  background-color: #fa52a0;
+  color: #fefefe;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out; /* Transición suave del efecto de pulsación */
+}
+
+.button:hover {
+  background-color: #a180e1;
+}
+
+.button:active {
+  background-color: #fa52a0;
+  transform: scale(
+    0.9
+  ); /* Reduce ligeramente el tamaño del botón cuando se hace clic */
+}
+
+.button:focus {
+  background-color: #fa52a0;
+}
+
+.button.large {
+  font-size: 1.25rem;
+}
+
+.button.expanded {
+  display: block;
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Media Queries */
+@media screen and (max-width: 39.9375em) {
+  .medium-6 {
+    width: 100%;
+  }
+
+  .medium-6:first-child,
+  .medium-6:last-child {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+
+  .large-5 {
+    width: 100%;
+  }
+
+  .titulo-compra {
+    font-size: 30px;
+  }
+
+  .descripcion-compra {
+    font-size: 16px;
+  }
+
+  .small-thumbnails .small-image {
+    width: 100px;
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .titulo-compra {
+    font-size: 35px;
+  }
+}

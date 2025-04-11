@@ -1,0 +1,16 @@
+.orbit-image {
+  width: 100%;
+  height: 800px;
+}
+
+@media screen and (max-width: 768px) {
+  .orbit-image {
+    width: 100%;
+    height: 500px;
+  }
+}
+
+.orbit-caption {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}

@@ -1,0 +1,238 @@
+.relevantes-container {
+  background-image: url("../img/helado-background-relevantes.jpeg");
+  background-size: cover; /* La imagen ocupará todo el fondo */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que se repita la imagen */
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Estilos mejorados para .product-card-title */
+.product-card-title {
+  font-family: "Poppins", sans-serif;
+  color: #fa52a0; /* Color principal */
+  font-size: 1.5rem; /* Tamaño de fuente aumentado */
+  font-weight: 700; /* Fuente más gruesa */
+  text-align: center; /* Centrar el texto */
+  margin: 0.5rem 0; /* Espaciado alrededor */
+  background: linear-gradient(
+    135deg,
+    #fa52a0 0%,
+    #ff96c8 100%
+  ); /* Degradado suave */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Relleno del texto con el degradado */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+  transition: transform 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.product-card-title:hover {
+  transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+  color: #ff6eb9; /* Cambia el color al pasar el ratón */
+}
+
+/* Estilos mejorados para .product-card-desc */
+.product-card-desc {
+  font-family: "Poppins", sans-serif;
+  color: #333; /* Color de texto más oscuro para mejor legibilidad */
+  font-size: 1.1rem; /* Tamaño de fuente aumentado */
+  line-height: 1.6; /* Espaciado entre líneas */
+  text-align: center; /* Centrar el texto */
+  margin: 0.5rem 0; /* Espaciado alrededor */
+  background: rgba(255, 255, 255, 0.8); /* Fondo ligero */
+  padding: 10px; /* Espaciado interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: background 0.3s ease; /* Transición suave */
+}
+
+.product-card-desc:hover {
+  background: rgba(255, 255, 255, 1); /* Fondo más oscuro al pasar el ratón */
+}
+
+/* Estilos mejorados para .product-card-price */
+.product-card-price {
+  font-family: "Poppins", sans-serif;
+  color: #fa52a0; /* Color principal */
+  font-size: 1.25rem; /* Tamaño de fuente aumentado */
+  font-weight: 700; /* Fuente más gruesa */
+  text-align: center; /* Centrar el texto */
+  margin: 0.5rem 0; /* Espaciado alrededor */
+  background: #f8f9fa; /* Fondo ligero */
+  padding: 10px 15px; /* Espaciado interno */
+  border-left: 5px solid #fa52a0; /* Borde decorativo */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: background 0.3s ease, color 0.3s ease; /* Transición suave */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+}
+
+.product-card-price:hover {
+  background: #a180e1; /* Fondo principal al pasar el ratón */
+  color: #fff; /* Color del texto al pasar el ratón */
+}
+
+.titulo-relevantes {
+  color: #fa52a0; /* Color base del texto */
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 70px;
+  letter-spacing: 1.5px; /* Espaciado elegante entre letras */
+  text-transform: uppercase; /* Todo el texto en mayúsculas para un estilo más formal */
+  -webkit-text-stroke: 2px #fff; /* Borde fino del texto para dar un toque moderno */
+  background: linear-gradient(
+    135deg,
+    #fa52a0 0%,
+    #ff96c8 100%
+  ); /* Degradado suave */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Relleno del texto con el degradado */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); /* Sombra sutil para darle profundidad */
+  margin-top: 20px; /* Espaciado superior para dar aire al título */
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Espaciado entre las cartas */
+}
+
+.card {
+  background-color: #ffffff99;
+  width: 30%;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  align-items: center;
+  text-align: center;
+  border-color: #fa52a0;
+}
+.imagen-relevantes {
+  border: 3px solid #fff;
+}
+.imagen-placeholder {
+  background-color: purple;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.letra-parrafo-1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: black;
+}
+
+.ecommerce-product-slider .orbit-previous,
+.ecommerce-product-slider .orbit-next {
+  color: #cacaca;
+}
+
+.ecommerce-product-slider .orbit-bullets button {
+  height: 0.65rem;
+  width: 0.65rem;
+}
+
+.ecommerce-product-slider .product-card-title {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.ecommerce-product-slider .product-card-desc {
+  color: black;
+  text-align: center;
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+.ecommerce-product-slider .product-card-price {
+  text-align: center;
+  color: black;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.8rem;
+}
+
+.ecommerce-product-slider .product-card-sale {
+  color: #cacaca;
+  text-align: center;
+  display: inline-block;
+  font-size: 0.85rem;
+  margin-left: 0.3rem;
+  text-decoration: line-through;
+}
+
+.product-card-thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.product-card-thumbnail img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.orbit-next,
+.orbit-previous {
+  color: #ff6eb9 !important;
+  background-color: transparent;
+}
+.orbit-next:hover,
+.orbit-previous:hover {
+  color: #ff6eb9 !important;
+  cursor: pointer;
+  background-color: rgba(240, 240, 240, 0.2);
+}
+
+.orbit-next:focus,
+.orbit-previous:focus {
+  color: #ff6eb9 !important; /* Cambia el color del icono o flecha */
+}
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+  .card {
+    width: 25%; /* Ajustar el ancho de las tarjetas para pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .titulo-relevantes {
+    font-size: 50px;
+  }
+  .card {
+    width: 25%; /* Mostrar dos tarjetas horizontales en pantallas pequeñas */
+  }
+}
+@media (max-width: 400) {
+  .card {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* Las tarjetas ocupan el 100% del ancho para pantallas muy pequeñas */
+  }
+}

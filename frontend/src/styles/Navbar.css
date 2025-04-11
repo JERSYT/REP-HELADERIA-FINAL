@@ -1,0 +1,188 @@
+/* Oculta el icono temporal del traductor de Google */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+
+/* Oculta el frame del traductor */
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+/* Si el widget de traducción genera algún espacio en blanco, lo eliminas */
+.goog-te-gadget {
+  display: none !important;
+}
+
+/* Ocultar la barra completa que aparece en la parte superior */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+/* Asegurarse de que el layout no sea afectado */
+.goog-te-banner-frame {
+  visibility: hidden !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Oculta el logo de Google que se muestra en el traductor */
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  display: none !important;
+}
+
+/* Muestra solo el contenedor personalizado */
+.custom-google-translate-wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  width: max-content;
+}
+
+/* Estilo para el ícono de Google Translate personalizado */
+.custom-google-translate-wrapper .material-symbols-outlined {
+  font-size: 20px;
+  color: #333;
+  margin-right: 5px;
+}
+
+/* Ocultar el widget de Google que aparece */
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  display: none !important;
+}
+
+.VIpgJd-ZVi9od-ORHb {
+  display: none !important;
+  padding: 0 !important;
+}
+
+/* Asegúrate de que el ícono tenga el tamaño adecuado */
+.material-symbols-outlined {
+  font-size: 25px !important; /* Cambia este valor según el tamaño que desees */
+  line-height: 1; /* Ajusta el espacio vertical si es necesario */
+}
+
+/* Enlaces */
+a {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 19px;
+}
+
+/* Barra superior (navbar) */
+.top-bar {
+  background-color: #fafafa;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+ul.menu {
+  background-color: #fafafa;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.menu-text {
+  background-color: #fafafa;
+}
+
+/* Estilo para los enlaces del menú */
+.link-12 {
+  color: #fa52a0 !important;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  display: inline-block;
+  transition: all 0.4s;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding-bottom: 15px;
+}
+
+/* Hover efecto en los enlaces */
+.link-12:hover {
+  transition: all 0.4s;
+  transform: translateY(-10px);
+  color: #a180e1 !important;
+}
+
+img {
+  width: 165px;
+  margin-left: 30px;
+}
+
+.menu-left {
+  padding-top: 25px;
+}
+
+/* Estilos para pantallas pequeñas */
+@media only screen and (max-width: 1023px) {
+  /* Cambiar el color de todas las barras del menú hamburguesa */
+  .menu-icon {
+    background-color: #fa52a0;
+    height: 20px;
+  }
+
+  .title-bar {
+    background-color: #fafafa;
+  }
+
+  .title-bar-title {
+    padding-left: 15px;
+    padding-top: 3px;
+    color: #fa52a0;
+    font-size: 25px;
+  }
+
+  .top-bar {
+    display: none;
+  }
+
+  .is-open .top-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centramos verticalmente */
+    align-items: center; /* Centramos horizontalmente */
+    height: 100vh; /* Ocupamos el 100% de la altura de la pantalla */
+    background-color: #fafafa;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  ul.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .link-12 {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  img {
+    width: 200px;
+    margin: 0;
+  }
+
+  .menu-left {
+    padding-top: 0;
+    padding-bottom: 10px;
+  }
+}
