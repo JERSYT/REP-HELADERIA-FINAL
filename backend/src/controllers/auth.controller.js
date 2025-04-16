@@ -1,8 +1,8 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { createAccessToken } from "../libs/jwt.js";
 
+// Registrar nuevo usuario
 export const register = async (req, res) => {
   const { email, password, username } = req.body;
 
@@ -14,24 +14,32 @@ export const register = async (req, res) => {
       email,
       password: passwordHash,
     });
+
     const userSaved = await newUser.save();
     const token = await createAccessToken({ id: userSaved._id });
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
 
-    // console.log(newUser);
     res.json({
-      id: userSaved._id,
-      username: userSaved.username,
-      email: userSaved.email,
-      createAt: userSaved.createdAt,
-      updateAt: userSaved.updatedAt,
+      token, // Se incluye aquí por conveniencia
+      user: {
+        id: userSaved._id,
+        username: userSaved.username,
+        email: userSaved.email,
+        createdAt: userSaved.createdAt,
+        updatedAt: userSaved.updatedAt,
+      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+// Login
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -46,21 +54,28 @@ export const login = async (req, res) => {
 
     const token = await createAccessToken({ id: userFound._id });
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
 
-    // console.log(newUser);
     res.json({
-      id: userFound._id,
-      username: userFound.username,
-      email: userFound.email,
-      createAt: userFound.createdAt,
-      updateAt: userFound.updatedAt,
+      token,
+      user: {
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+        createdAt: userFound.createdAt,
+        updatedAt: userFound.updatedAt,
+      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+// Logout
 export const logout = async (req, res) => {
   res.cookie("token", "", {
     expires: new Date(0),
@@ -68,6 +83,7 @@ export const logout = async (req, res) => {
   return res.sendStatus(200);
 };
 
+// Obtener perfil
 export const profile = async (req, res) => {
   const userFound = await User.findById(req.user.id);
 
@@ -78,7 +94,7 @@ export const profile = async (req, res) => {
     id: userFound._id,
     username: userFound.username,
     email: userFound.email,
-    createAt: userFound.createdAt,
-    updateAt: userFound.updatedAt,
+    createdAt: userFound.createdAt,
+    updatedAt: userFound.updatedAt,
   });
 };

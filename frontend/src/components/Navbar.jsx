@@ -1,64 +1,26 @@
+// src/components/Navbar.jsx
 import "foundation-sites/dist/css/foundation.min.css";
 import "foundation-sites/dist/js/foundation.min.js";
 import "../styles/Navbar.css";
 import Logo from "../img/logo.png";
+import { FaUser, FaSignOutAlt } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import $ from "jquery";
-import { useEffect } from "react";
-import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
+  const { auth, logout } = useAuth();
+  const navigate = useNavigate();
+
   useEffect(() => {
     $(document).foundation();
-
-    // Añadir el script de Google Translate si no está ya añadido
-    if (!window.googleTranslateScriptAdded) {
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src =
-        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      document.body.appendChild(script);
-      window.googleTranslateScriptAdded = true;
-    }
-
-    // Inicializar Google Translate
-    window.googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: "es",
-          includedLanguages: "es,en,pt,fr",
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-        },
-        "google_translate_element"
-      );
-    };
-
-    // Función para reemplazar el texto "G_Traducir" por el icono
-    const replaceGTranslateTextWithIcon = () => {
-      const translateFonts = document.querySelectorAll("font");
-
-      translateFonts.forEach((font) => {
-        if (font.textContent.includes("g_traducir")) {
-          font.innerHTML =
-            '<span class="material-symbols-outlined" style="color: #fa52a0 !important; ">g_translate</span>';
-        }
-      });
-    };
-
-    // Observador de mutaciones para detectar cambios en el DOM generados por el traductor
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach(() => {
-        replaceGTranslateTextWithIcon(); // Reemplaza cada vez que hay un cambio
-      });
-    });
-
-    // Monitorea el documento completo para detectar cambios
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Cleanup para detener el observador cuando el componente se desmonte
-    return () => {
-      observer.disconnect();
-    };
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login"); // Redirigir al login después de cerrar sesión
+  };
 
   return (
     <div>
@@ -88,24 +50,6 @@ const Navbar = () => {
                 INICIO
               </a>
             </li>
-            <div className="menu-left">
-              <div
-                id="google_translate_element"
-                className="custom-google-translate-wrapper"
-                onClick={() => {
-                  const translateFrame = document.querySelector(
-                    ".goog-te-gadget-simple"
-                  );
-                  if (translateFrame) {
-                    translateFrame.click();
-                  }
-                }}
-              >
-                <span className="link-12 material-symbols-outlined">
-                  g_translate
-                </span>
-              </div>
-            </div>
           </ul>
         </div>
         <div className="top-bar-right">
@@ -131,9 +75,23 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <a className="link-12" href="/login">
-                <FaUser />
-              </a>
+              {auth?.isAuthenticated ? (
+                <div className="user-info">
+                  {/* Usamos auth.user.username para mostrar el nombre correctamente */}
+                  {auth.user?.username ? (
+                    <span className="user-name">{auth.user.username}</span>
+                  ) : (
+                    <span className="user-name">Usuario</span>
+                  )}
+                  <button className="logout-btn" onClick={handleLogout}>
+                    <FaSignOutAlt />
+                  </button>
+                </div>
+              ) : (
+                <a className="link-12" href="/login">
+                  <FaUser />
+                </a>
+              )}
             </li>
           </ul>
         </div>

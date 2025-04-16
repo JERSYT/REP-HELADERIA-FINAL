@@ -61,6 +61,13 @@ body {
   display: none !important;
 }
 
+.user-name {
+  font-weight: bold;
+  color: #fa52a0; /* Puedes cambiar este color si prefieres otro */
+  margin-right: 10px;
+}
+
+
 .VIpgJd-ZVi9od-ORHb {
   display: none !important;
   padding: 0 !important;
