@@ -2,6 +2,8 @@ import "foundation-sites/dist/css/foundation.min.css";
 import "foundation-sites/dist/js/foundation.min.js";
 import "../styles/Login.css";
 import $ from "jquery";
+import Swal from "sweetalert2"; // 👈 importar SweetAlert2
+
 import { useEffect, useState } from "react";
 import Logo from "../img/heladeria.png";
 import axios from "axios";
@@ -28,17 +30,12 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/login", // Asegúrate de que la URL sea la correcta
+        "http://localhost:5000/api/login", // ✅ Ruta correcta
         { email, password },
         { withCredentials: true } // Si estás usando cookies, con esto se incluyen
       );
-
       console.log("Login correcto:", res.data);
-
-      // ✅ Guardar el usuario y el token en el contexto global
-      login(res.data); // Usamos la función login del contexto
-
-      navigate("/"); // Redirigir al home o dashboard
+      navigate("/"); // redirige a home o dashboard
     } catch (err) {
       console.error("Error en login:", err);
       setError(err.response?.data?.message || "Error al iniciar sesión");
