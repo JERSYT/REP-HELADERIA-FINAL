@@ -27,17 +27,26 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/login", // ✅ Ruta correcta
+        "http://localhost:5000/api/login",
         { email, password },
-        { withCredentials: true } // Si estás usando cookies, con esto se incluyen
+        { withCredentials: true }
       );
-      console.log("Login correcto:", res.data);
-      navigate("/"); // redirige a home o dashboard
+
+      // ✅ ALERTA ÉXITO
+      Swal.fire({
+        icon: "success",
+        title: "¡Bienvenido!",
+        text: "Inicio de sesión exitoso.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (err) {
-      console.error("Error en login:", err);
       setError(err.response?.data?.message || "Error al iniciar sesión");
     }
   };
@@ -69,7 +78,9 @@ const Login = () => {
           <label htmlFor="sign-in-form-email">Correo</label>
           <input
             type="email"
-            className={`sign-in-form-username ${error ? "is-invalid-input" : ""}`}
+            className={`sign-in-form-username ${
+              error ? "is-invalid-input" : ""
+            }`}
             id="sign-in-form-email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -79,7 +90,9 @@ const Login = () => {
           <label htmlFor="sign-in-form-password">Contraseña</label>
           <input
             type="password"
-            className={`sign-in-form-password ${error ? "is-invalid-input" : ""}`}
+            className={`sign-in-form-password ${
+              error ? "is-invalid-input" : ""
+            }`}
             id="sign-in-form-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
