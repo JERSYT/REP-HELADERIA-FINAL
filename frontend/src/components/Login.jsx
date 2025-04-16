@@ -33,19 +33,13 @@ const Login = () => {
         { email, password },
         { withCredentials: true }
       );
+<<<<<<< HEAD
 
-      // ✅ ALERTA ÉXITO
-      Swal.fire({
-        icon: "success",
-        title: "¡Bienvenido!",
-        text: "Inicio de sesión exitoso.",
-        timer: 2000,
-        showConfirmButton: false,
-      });
-
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
+     
+=======
+      console.log("Login correcto:", res.data);
+      navigate("/"); // redirige a home o dashboar
+>>>>>>> 6cbb49501fd86ad43a8a7bdd2ff3ebf462bf9464
     } catch (err) {
       setError(err.response?.data?.message || "Error al iniciar sesión");
     }
