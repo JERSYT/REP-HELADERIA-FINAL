@@ -35,7 +35,7 @@ const Login = () => {
         { withCredentials: true } // Si estás usando cookies, con esto se incluyen
       );
       console.log("Login correcto:", res.data);
-      navigate("/"); // redirige a home o dashboard
+      navigate("/"); // redirige a home o dashboar
     } catch (err) {
       console.error("Error en login:", err);
       setError(err.response?.data?.message || "Error al iniciar sesión");
