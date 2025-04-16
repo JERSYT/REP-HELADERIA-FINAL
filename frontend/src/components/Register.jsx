@@ -4,6 +4,7 @@ import "../styles/Login.css";
 import $ from "jquery";
 import { useEffect, useState } from "react";
 import Logo from "../img/heladeria.png";
+import Swal from "sweetalert2"; // 👈 importar SweetAlert2
 import api from "./axios"; // Asegúrate que la ruta esté bien
 import { useNavigate } from "react-router-dom";
 
@@ -57,6 +58,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setServerError("");
+
     if (validateForm()) {
       try {
         await api.post(
@@ -69,9 +71,29 @@ const Register = () => {
           { withCredentials: true }
         );
 
-        navigate("/login"); // Redirige al login después del registro
+        // ✅ SweetAlert2 de éxito
+        Swal.fire({
+          icon: "success",
+          title: "¡Registro exitoso!",
+          text: "Ahora puedes iniciar sesión.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } catch (err) {
-        setServerError(err.response?.data?.message || "Error al registrarse");
+        const message = err.response?.data?.message || "Error al registrarse";
+
+        // ❌ SweetAlert2 de error
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: message,
+        });
+
+        setServerError(message); // Opcional, si también quieres mostrar el mensaje abajo
       }
     }
   };

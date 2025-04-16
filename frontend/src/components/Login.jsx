@@ -2,6 +2,8 @@ import "foundation-sites/dist/css/foundation.min.css";
 import "foundation-sites/dist/js/foundation.min.js";
 import "../styles/Login.css";
 import $ from "jquery";
+import Swal from "sweetalert2"; // 👈 importar SweetAlert2
+
 import { useEffect, useState } from "react";
 import Logo from "../img/heladeria.png";
 import axios from "axios";
@@ -22,12 +24,23 @@ const Login = () => {
     setError("");
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/login", // ✅ Ruta correcta
+        "http://localhost:5000/api/login",
         { email, password },
         { withCredentials: true }
       );
-      console.log("Login correcto:", res.data);
-      navigate("/"); // redirige a home o dashboard
+
+      // ✅ ALERTA ÉXITO
+      Swal.fire({
+        icon: "success",
+        title: "¡Bienvenido!",
+        text: "Inicio de sesión exitoso.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (err) {
       setError(err.response?.data?.message || "Error al iniciar sesión");
     }
