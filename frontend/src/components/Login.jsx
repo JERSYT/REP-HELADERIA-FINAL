@@ -2,37 +2,95 @@ import "foundation-sites/dist/css/foundation.min.css";
 import "foundation-sites/dist/js/foundation.min.js";
 import "../styles/Login.css";
 import $ from "jquery";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../img/heladeria.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   useEffect(() => {
     $(document).foundation();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/login", // ✅ Ruta correcta
+        { email, password },
+        { withCredentials: true }
+      );
+      console.log("Login correcto:", res.data);
+      navigate("/"); // redirige a home o dashboard
+    } catch (err) {
+      setError(err.response?.data?.message || "Error al iniciar sesión");
+    }
+  };
+
   return (
     <div className="login-container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="sign-in-form">
-          <h4 className="text-center">Iniciar sesion</h4>
+          <h4 className="text-center">Iniciar sesión</h4>
+
           <div className="logo-container-login">
-            <img 
-              src={Logo} // Asegúrate de usar la ruta correcta a tu imagen
-              alt="Logo Heladería"
-              className="logo-img"
-            />
+            <img src={Logo} alt="Logo Heladería" className="logo-img" />
           </div>
-          <label htmlFor="sign-in-form-username">Usuario</label>
-          <input type="text" className="sign-in-form-username" id="sign-in-form-username" />
+
+          {/* ✅ Error visible en rojo con Foundation */}
+          {error && (
+            <div className="callout alert" data-closable>
+              {error}
+              <button
+                className="close-button"
+                aria-label="Dismiss alert"
+                type="button"
+                data-close
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          )}
+
+          <label htmlFor="sign-in-form-email">Correo</label>
+          <input
+            type="email"
+            className={`sign-in-form-username ${
+              error ? "is-invalid-input" : ""
+            }`}
+            id="sign-in-form-email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
           <label htmlFor="sign-in-form-password">Contraseña</label>
-          <input type="password" className="sign-in-form-password" id="sign-in-form-password" />
-          <button type="submit" className="sign-in-form-button">
+          <input
+            type="password"
+            className={`sign-in-form-password ${
+              error ? "is-invalid-input" : ""
+            }`}
+            id="sign-in-form-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit" className="button expanded">
             Ingresar
           </button>
-          <div className="login-registrarse">
-            Si no tiene una cuenta puedes resgistrarse   <a className="link" href="/register">
-                aquí
-              </a>
+
+          <div className="login-registrarse text-center">
+            ¿No tienes una cuenta?{" "}
+            <a className="link" href="/register">
+              Regístrate aquí
+            </a>
           </div>
         </div>
       </form>

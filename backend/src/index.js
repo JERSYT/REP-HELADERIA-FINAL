@@ -8,6 +8,16 @@ import taskRoutes from "./routes/tasks.routes.js";
 import pedidosRoutes from "./routes/pedidos.routes.js";
 import inventarioRoutes from "./routes/inventario.routes.js";
 const app = express();
+import cors from "cors";
+
+// Antes de tus rutas
+app.use(
+  cors({
+    origin: "http://localhost:5173", // cambia según tu puerto del frontend
+    credentials: true,
+  })
+);
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
