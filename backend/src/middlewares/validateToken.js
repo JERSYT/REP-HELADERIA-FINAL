@@ -2,15 +2,18 @@ import jwt from "jsonwebtoken";
 import { TOKEN_SECRET } from "../config.js";
 
 export const authRequired = (req, res, next) => {
-  const { token } = req.cookies;
-  if (!token)
-    return res.status(401).json({ message: "No hay token, ingreso denegado" });
+  const token = req.cookies?.token;
 
-  jwt.verify(token, TOKEN_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: "Token Invalido" });
+  if (!token) {
+    return res.status(401).json({ message: "No autorizado: Token ausente" });
+  }
 
-    req.user = user;
+  jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: "Token inválido o expirado" });
+    }
 
-    next();
+    req.user = decoded; // Ahora tienes acceso a la info del usuario
+    next(); // Pasa al siguiente middleware o controlador
   });
 };

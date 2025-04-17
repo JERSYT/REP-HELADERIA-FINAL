@@ -2,7 +2,7 @@ import "foundation-sites/dist/css/foundation.min.css";
 import "foundation-sites/dist/js/foundation.min.js";
 import "../styles/Login.css";
 import $ from "jquery";
-import Swal from "sweetalert2"; // 👈 importar SweetAlert2
+import Swal from "sweetalert2";
 
 import { useEffect, useState } from "react";
 import Logo from "../img/heladeria.png";
@@ -34,6 +34,11 @@ const Login = () => {
         { withCredentials: true }
       );
 
+      const data = res.data;
+
+      // ✅ Guardar el usuario y token en el contexto
+      login(data);
+
       // ✅ ALERTA ÉXITO
       Swal.fire({
         icon: "success",
@@ -50,6 +55,7 @@ const Login = () => {
       setError(err.response?.data?.message || "Error al iniciar sesión");
     }
   };
+
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit}>

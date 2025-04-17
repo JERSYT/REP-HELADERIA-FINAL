@@ -1,32 +1,42 @@
 import express from "express";
 import morgan from "morgan";
 import { connectDB } from "./db.js";
-
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/tasks.routes.js";
 import pedidosRoutes from "./routes/pedidos.routes.js";
 import inventarioRoutes from "./routes/inventario.routes.js";
-const app = express();
+import profileRoutes from "./routes/profile.routes.js"
 import cors from "cors";
 
-// Antes de tus rutas
+const app = express();
+
+// Middleware de CORS: configuración adecuada para permitir cookies y acceder desde el frontend
 app.use(
   cors({
-    origin: "http://localhost:5173", // cambia según tu puerto del frontend
-    credentials: true,
+    origin: "http://localhost:5173", // Cambia según tu puerto del frontend
+    credentials: true, // Asegura que las cookies sean enviadas junto con las solicitudes
   })
 );
 
+// Middleware para registrar las peticiones (morgan), para depuración
 app.use(morgan("dev"));
+
+// Middleware para procesar el cuerpo de las solicitudes (express.json) y manejar cookies (cookie-parser)
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api", authRoutes);
-app.use("/api", taskRoutes);
-app.use("/api", pedidosRoutes);
-app.use("/api", inventarioRoutes);
 
+// Rutas
+app.use("/api", authRoutes);      // Ruta de autenticación
+app.use("/api", taskRoutes);      // Ruta de tareas
+app.use("/api", pedidosRoutes);   // Ruta de pedidos
+app.use("/api", inventarioRoutes); // Ruta de inventario
+app.use("/api", profileRoutes); // Ruta de inventario
+
+// Conexión a la base de datos
 connectDB();
 
-app.listen(5000);
-console.log("Servidor corriendo", 5000);
+// Inicia el servidor en el puerto 5000
+app.listen(5000, () => {
+  console.log("Servidor corriendo en http://localhost:5000");
+});

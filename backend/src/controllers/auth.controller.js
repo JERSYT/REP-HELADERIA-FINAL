@@ -20,12 +20,12 @@ export const register = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: false, // ⚠️ en desarrollo debe ser false. En producción: true (https)
+      sameSite: "lax", // puede ser "none" para cross-site + secure
+      maxAge: 24 * 60 * 60 * 1000, // 1 día
     });
 
     res.json({
-      token, // Se incluye aquí por conveniencia
       user: {
         id: userSaved._id,
         username: userSaved.username,
@@ -56,12 +56,12 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production", // true solo en producción
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     res.json({
-      token,
       user: {
         id: userFound._id,
         username: userFound.username,
@@ -78,6 +78,9 @@ export const login = async (req, res) => {
 // Logout
 export const logout = async (req, res) => {
   res.cookie("token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     expires: new Date(0),
   });
   return res.sendStatus(200);
