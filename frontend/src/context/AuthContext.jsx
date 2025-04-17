@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     user: null,
     token: null,
   });
+  const [loading, setLoading] = useState(true); // <-- Nuevo estado
 
   const login = (data) => {
     setAuth({
@@ -27,14 +28,14 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  // 🔄 Verifica si hay sesión activa al montar el componente
+  // Verifica si hay sesión activa al montar el componente
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await api.get("/profile"); // Intenta obtener el perfil
         setAuth({
           isAuthenticated: true,
-          user: res.data,
+          user: res.data, // res.data debe incluir { role, username, etc. }
           token: null, // no necesitas guardarlo aquí si usas cookies
         });
       } catch (error) {
@@ -43,6 +44,8 @@ export const AuthProvider = ({ children }) => {
           user: null,
           token: null,
         });
+      } finally {
+        setLoading(false); // <-- Marcamos que ya terminó la verificación
       }
     };
 
@@ -50,7 +53,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider value={{ auth, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
