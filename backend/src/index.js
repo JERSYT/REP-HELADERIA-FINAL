@@ -6,7 +6,9 @@ import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/tasks.routes.js";
 import pedidosRoutes from "./routes/pedidos.routes.js";
 import inventarioRoutes from "./routes/inventario.routes.js";
-import profileRoutes from "./routes/profile.routes.js"
+import profileRoutes from "./routes/profile.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
+
 import cors from "cors";
 
 const app = express();
@@ -27,11 +29,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Rutas
-app.use("/api", authRoutes);      // Ruta de autenticación
-app.use("/api", taskRoutes);      // Ruta de tareas
-app.use("/api", pedidosRoutes);   // Ruta de pedidos
+app.use("/api", authRoutes); // Ruta de autenticación
+app.use("/api", taskRoutes); // Ruta de tareas
+app.use("/api", pedidosRoutes); // Ruta de pedidos
 app.use("/api", inventarioRoutes); // Ruta de inventario
 app.use("/api", profileRoutes); // Ruta de inventario
+app.use("/api", adminRoutes);
 
 // Conexión a la base de datos
 connectDB();

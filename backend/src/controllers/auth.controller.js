@@ -13,6 +13,7 @@ export const register = async (req, res) => {
       username,
       email,
       password: passwordHash,
+      role: "usuario", // 🔒 se fuerza a "usuario" siempre en registros normales
     });
 
     const userSaved = await newUser.save();
@@ -21,8 +22,8 @@ export const register = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: false, // ⚠️ en desarrollo debe ser false. En producción: true (https)
-      sameSite: "lax", // puede ser "none" para cross-site + secure
-      maxAge: 24 * 60 * 60 * 1000, // 1 día
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     res.json({
@@ -30,6 +31,7 @@ export const register = async (req, res) => {
         id: userSaved._id,
         username: userSaved.username,
         email: userSaved.email,
+        role: userSaved.role,
         createdAt: userSaved.createdAt,
         updatedAt: userSaved.updatedAt,
       },
@@ -56,7 +58,7 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // true solo en producción
+      secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -66,6 +68,7 @@ export const login = async (req, res) => {
         id: userFound._id,
         username: userFound.username,
         email: userFound.email,
+        role: userFound.role,
         createdAt: userFound.createdAt,
         updatedAt: userFound.updatedAt,
       },
@@ -97,6 +100,7 @@ export const profile = async (req, res) => {
     id: userFound._id,
     username: userFound.username,
     email: userFound.email,
+    role: userFound.role,
     createdAt: userFound.createdAt,
     updatedAt: userFound.updatedAt,
   });
