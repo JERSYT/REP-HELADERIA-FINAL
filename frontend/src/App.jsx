@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "foundation-sites/dist/css/foundation.min.css";
 import "foundation-sites/dist/js/foundation.min.js";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
 import Navbar from "./components/Navbar.jsx";
 import Headers from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
@@ -17,24 +18,30 @@ import Galeria from "./components/Galeria.jsx";
 import Register from "./components/Register.jsx";
 import Profile from "./components/Profile.jsx";
 import Usuarios from "./components/Usuarios.jsx";
-import Inventario from "./components/Inventario.jsx"; // <-- Importa el componente de inventario
+import Inventario from "./components/Inventario.jsx";
+
 import { useAuth } from "./context/AuthContext";
 
-// Componente ProtectedRoute
+// Ruta protegida para cualquier usuario autenticado
+const PrivateRoute = ({ children }) => {
+  const { auth, loading } = useAuth();
+
+  if (loading) return <div>Cargando...</div>;
+
+  if (!auth.isAuthenticated) return <Navigate to="/login" replace />;
+
+  return children;
+};
+
+// Ruta protegida solo para administradores
 const ProtectedRoute = ({ children }) => {
   const { auth, loading } = useAuth();
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
+  if (loading) return <div>Cargando...</div>;
 
-  if (!auth.isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
+  if (!auth.isAuthenticated) return <Navigate to="/login" replace />;
 
-  if (auth.user.role !== "admin") {
-    return <Navigate to="/" replace />;
-  }
+  if (auth.user.role !== "admin") return <Navigate to="/" replace />;
 
   return children;
 };
@@ -43,15 +50,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <div>
@@ -72,10 +75,20 @@ function App() {
           <Route path="/api" element={<Api />} />
           <Route path="/comprar/:id" element={<Comprar />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/galeria" element={<Galeria />} />
 
-          {/* Rutas protegidas para Admin */}
+          {/* RUTA PROTEGIDA: perfil solo para usuarios logueados */}
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+
+          {/* RUTAS PROTEGIDAS SOLO PARA ADMIN */}
           <Route
             path="/admin/usuarios"
             element={
@@ -93,7 +106,6 @@ function App() {
             }
           />
 
-          <Route path="/galeria" element={<Galeria />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

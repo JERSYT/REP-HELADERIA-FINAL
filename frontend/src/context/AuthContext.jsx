@@ -10,9 +10,14 @@ export const AuthProvider = ({ children }) => {
     user: null,
     token: null,
   });
-  const [loading, setLoading] = useState(true); // <-- Nuevo estado
 
+  const [loading, setLoading] = useState(true);
+
+  // Iniciar sesión
   const login = (data) => {
+    localStorage.setItem("token", data.token); // Guardamos el token
+    api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`; // Configuramos el token en Axios
+
     setAuth({
       isAuthenticated: true,
       user: data.user,
@@ -20,23 +25,36 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const logout = () => {
-    setAuth({
-      isAuthenticated: false,
-      user: null,
-      token: null,
-    });
+  // Cerrar sesión
+  const logout = async () => {
+    try {
+      await api.post("/logout", null, { withCredentials: true });
+  
+      setAuth({
+        isAuthenticated: false,
+        user: null,
+        token: null,
+      });
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
   };
+  
 
-  // Verifica si hay sesión activa al montar el componente
+  // Verifica si hay sesión activa al montar
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+
     const checkAuth = async () => {
       try {
-        const res = await api.get("/profile"); // Intenta obtener el perfil
+        const res = await api.get("/profile");
         setAuth({
           isAuthenticated: true,
-          user: res.data, // res.data debe incluir { role, username, etc. }
-          token: null, // no necesitas guardarlo aquí si usas cookies
+          user: res.data,
+          token,
         });
       } catch (error) {
         setAuth({
@@ -44,8 +62,10 @@ export const AuthProvider = ({ children }) => {
           user: null,
           token: null,
         });
+        localStorage.removeItem("token"); // Limpia en caso de token inválido
+        delete api.defaults.headers.common["Authorization"];
       } finally {
-        setLoading(false); // <-- Marcamos que ya terminó la verificación
+        setLoading(false);
       }
     };
 

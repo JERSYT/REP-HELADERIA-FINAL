@@ -140,13 +140,6 @@ const Navbar = () => {
 
                 </li>
                 <li>
-                  <button
-                    onClick={logout}
-                    className="link-12 button small alert"
-                    style={{ marginTop: "0.5rem" }}
-                  >
-                    Cerrar sesión
-                  </button>
                 </li>
               </>
             ) : (

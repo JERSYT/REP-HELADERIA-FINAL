@@ -7,7 +7,11 @@ import "../styles/Profile.css";
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedProfile, setEditedProfile] = useState({ username: "", email: "" });
+  const [editedProfile, setEditedProfile] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
 
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -20,6 +24,7 @@ const Profile = () => {
         setEditedProfile({
           username: response.data.username,
           email: response.data.email,
+          password: "", // Dejamos la contraseña vacía inicialmente
         });
       } catch (error) {
         console.error("Error al obtener el perfil:", error);
@@ -29,8 +34,8 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
@@ -39,14 +44,44 @@ const Profile = () => {
   };
 
   const handleSave = async () => {
+    console.log("Guardando perfil...");
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  
+    // Validación de email
+    if (!emailRegex.test(editedProfile.email)) {
+      alert("Por favor, ingrese un correo electrónico válido.");
+      return;
+    }
+  
+    // Validación de contraseña si se ha ingresado
+    if (editedProfile.password && !passwordRegex.test(editedProfile.password)) {
+      alert("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.");
+      return;
+    }
+  
     try {
-      const response = await api.put("/profile", editedProfile); // Asegúrate que tu backend soporte este endpoint
-      setProfile({ ...profile, ...editedProfile });
+      const updatedProfile = { ...editedProfile };
+  
+      // Si no se cambió la contraseña, la eliminamos
+      if (!updatedProfile.password) {
+        delete updatedProfile.password;
+      }
+  
+      const response = await api.put("/profile", updatedProfile);
+      console.log("Respuesta del servidor:", response);
+  
+      setProfile({ ...profile, ...updatedProfile });
+      console.log("Perfil actualizado:", { ...profile, ...updatedProfile });
+  
       setIsEditing(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error al actualizar perfil:", error);
     }
   };
+  
 
   if (!profile) return <div>Cargando...</div>;
 
@@ -67,6 +102,14 @@ const Profile = () => {
             name="email"
             value={editedProfile.email}
             onChange={handleEditChange}
+          />
+          <label>Contraseña:</label>
+          <input
+            name="password"
+            type="password"
+            value={editedProfile.password}
+            onChange={handleEditChange}
+            placeholder="Ingrese nueva contraseña (dejar vacío para no cambiar)"
           />
           <div className="button-group">
             <button onClick={handleSave}>Guardar</button>
