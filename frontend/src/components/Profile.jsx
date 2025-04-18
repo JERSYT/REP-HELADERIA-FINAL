@@ -2,21 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import api from "../components/axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/Navbar.css";
-
+import "../styles/Profile.css";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
-  const { logout } = useAuth(); // Traemos la función logout del contexto
-  const navigate = useNavigate(); // Usamos el hook para redirigir
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedProfile, setEditedProfile] = useState({ username: "", email: "" });
 
-  // Fetch del perfil
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const response = await api.get("/profile");
-        console.log(response.data); // Para depurar la respuesta
-        setProfile(response.data); // Guardamos los datos del perfil
+        setProfile(response.data);
+        setEditedProfile({
+          username: response.data.username,
+          email: response.data.email,
+        });
       } catch (error) {
         console.error("Error al obtener el perfil:", error);
       }
@@ -25,25 +29,61 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  // Cargar cuando no hay perfil
-  if (!profile) return <div>Cargando...</div>;
-
-  // Función para cerrar sesión
   const handleLogout = () => {
-    logout(); // Llamamos a logout del contexto
-    navigate("/login"); // Redirigimos a la página de login
+    logout();
+    navigate("/login");
   };
 
+  const handleEditChange = (e) => {
+    setEditedProfile({ ...editedProfile, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = async () => {
+    try {
+      const response = await api.put("/profile", editedProfile); // Asegúrate que tu backend soporte este endpoint
+      setProfile({ ...profile, ...editedProfile });
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error al actualizar perfil:", error);
+    }
+  };
+
+  if (!profile) return <div>Cargando...</div>;
+
   return (
-    <div>
+    <div className="profile-container">
       <h1>Perfil de Usuario</h1>
-      <p><strong>Username:</strong> {profile.username}</p>
-      <p><strong>Email:</strong> {profile.email}</p>
+
+      {isEditing ? (
+        <>
+          <label>Username:</label>
+          <input
+            name="username"
+            value={editedProfile.username}
+            onChange={handleEditChange}
+          />
+          <label>Email:</label>
+          <input
+            name="email"
+            value={editedProfile.email}
+            onChange={handleEditChange}
+          />
+          <div className="button-group">
+            <button onClick={handleSave}>Guardar</button>
+            <button onClick={() => setIsEditing(false)}>Cancelar</button>
+          </div>
+        </>
+      ) : (
+        <>
+          <p><strong>Username:</strong> {profile.username}</p>
+          <p><strong>Email:</strong> {profile.email}</p>
+          <button onClick={() => setIsEditing(true)}>Editar perfil</button>
+        </>
+      )}
+
       <p><strong>ID:</strong> {profile.id}</p>
       <p><strong>Fecha de Creación:</strong> {new Date(profile.createdAt).toLocaleDateString()}</p>
       <p><strong>Fecha de Actualización:</strong> {new Date(profile.updatedAt).toLocaleDateString()}</p>
-      {/* Agrega más campos si es necesario */}
-      
       <button onClick={handleLogout}>Cerrar sesión</button>
     </div>
   );
