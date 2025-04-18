@@ -16,46 +16,43 @@ import NotFound from "./components/NotFound.jsx";
 import Galeria from "./components/Galeria.jsx";
 import Register from "./components/Register.jsx";
 import Profile from "./components/Profile.jsx";
-import Usuarios from "./components/Usuarios.jsx"; // o donde tengas el componente
-import { useAuth } from "./context/AuthContext"; // Asegúrate de que la ruta es correcta
+import Usuarios from "./components/Usuarios.jsx";
+import Inventario from "./components/Inventario.jsx"; // <-- Importa el componente de inventario
+import { useAuth } from "./context/AuthContext";
 
 // Componente ProtectedRoute
 const ProtectedRoute = ({ children }) => {
   const { auth, loading } = useAuth();
 
   if (loading) {
-    return <div>Cargando...</div>; // Puedes poner un spinner o mensaje de carga
+    return <div>Cargando...</div>;
   }
 
   if (!auth.isAuthenticated) {
-    return <Navigate to="/login" replace />; // Redirige si no está autenticado
+    return <Navigate to="/login" replace />;
   }
 
   if (auth.user.role !== "admin") {
-    return <Navigate to="/" replace />; // Redirige si no es admin
+    return <Navigate to="/" replace />;
   }
 
-  return children; // Si es admin, renderiza la ruta protegida
+  return children;
 };
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true); // Estado para la pantalla de carga
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simula un tiempo de carga o la carga de datos reales
     const timer = setTimeout(() => {
-      setIsLoading(false); // Desactiva la pantalla de carga después de 2 segundos (ajustable)
+      setIsLoading(false);
     }, 1500);
-
-    return () => clearTimeout(timer); // Limpia el temporizador
+    return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    // Si isLoading es verdadero, mostramos la pantalla de carga
     return <LoadingScreen />;
   }
 
-  // Si isLoading es falso, cargamos la aplicación normal
   return (
     <div>
       <BrowserRouter>
@@ -75,20 +72,29 @@ function App() {
           <Route path="/api" element={<Api />} />
           <Route path="/comprar/:id" element={<Comprar />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />{" "}
-          {/* Nueva ruta para el perfil */}
+          <Route path="/profile" element={<Profile />} />
           <Route path="/register" element={<Register />} />
+
           {/* Rutas protegidas para Admin */}
           <Route
             path="/admin/usuarios"
             element={
               <ProtectedRoute>
-                <Usuarios /> {/* Tu componente de administración de usuarios */}
+                <Usuarios />
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/admin/inventario"
+            element={
+              <ProtectedRoute>
+                <Inventario />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="/galeria" element={<Galeria />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </BrowserRouter>
