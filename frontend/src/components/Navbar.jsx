@@ -128,6 +128,13 @@ const Navbar = () => {
                 API
               </a>
             </li>
+            <li>
+            <a className="link-12" href="/icecreamcustomizer">
+                CREA
+              </a>
+            </li>
+            
+
 
             {/* Mostrar nombre o ícono de login */}
             {auth.isAuthenticated ? (
