@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";  // Necesitarás instalar bcryptjs para el hashing de contraseñas
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
@@ -29,12 +29,12 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Middleware para encriptar la contraseña antes de guardarla
+// Middleware para encriptar la contraseña antes de guardar
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     try {
-      const salt = await bcrypt.genSalt(10);  // Genera un "salt" para el hash
-      this.password = await bcrypt.hash(this.password, salt);  // Hashea la contraseña
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
     } catch (error) {
       return next(error);
     }
@@ -42,9 +42,9 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Método para comparar contraseñas (para verificar durante el login)
+// Método para comparar contraseñas
 userSchema.methods.isValidPassword = async function (password) {
-  return bcrypt.compare(password, this.password);  // Compara la contraseña ingresada con el hash almacenado
+  return bcrypt.compare(password, this.password);
 };
 
 export default mongoose.model("User", userSchema);

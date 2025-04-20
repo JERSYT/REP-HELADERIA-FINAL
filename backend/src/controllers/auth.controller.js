@@ -7,11 +7,13 @@ export const register = async (req, res) => {
   const { email, password, username } = req.body;
 
   try {
+    const passwordHash = await bcrypt.hash(password, 10);
+
     const newUser = new User({
       username,
       email,
-      password, // Se guarda en texto plano y el modelo lo hashea automáticamente
-      role: "usuario",
+      password: passwordHash,
+      role: "usuario", // 🔒 se fuerza a "usuario" siempre en registros normales
     });
 
     const userSaved = await newUser.save();
