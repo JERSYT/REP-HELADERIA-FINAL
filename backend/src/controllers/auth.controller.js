@@ -1,19 +1,17 @@
 import User from "../models/user.model.js";
-import bcrypt from "bcryptjs";
 import { createAccessToken } from "../libs/jwt.js";
+import bcrypt from "bcryptjs";
 
 // Registrar nuevo usuario
 export const register = async (req, res) => {
   const { email, password, username } = req.body;
 
   try {
-    const passwordHash = await bcrypt.hash(password, 10);
-
     const newUser = new User({
       username,
       email,
-      password: passwordHash,
-      role: "usuario", // 🔒 se fuerza a "usuario" siempre en registros normales
+      password, // sin hash, el modelo lo manejará
+      role: "usuario",
     });
 
     const userSaved = await newUser.save();
@@ -21,7 +19,7 @@ export const register = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // ⚠️ en desarrollo debe ser false. En producción: true (https)
+      secure: false, // ⚠️ false en desarrollo, true en producción
       sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000,
     });
