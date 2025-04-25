@@ -3,12 +3,42 @@ import "foundation-sites/dist/js/foundation.min.js";
 import "../styles/Navbar.css";
 import Logo from "../img/logo.png";
 import $ from "jquery";
-import { useEffect } from "react";
+import { useEffect, useState, useContext } from "react";
 import { FaUser } from "react-icons/fa";
+import { BsCart2, BsTrash3 } from "react-icons/bs";
 import { useAuth } from "../context/AuthContext";
+import { CarritoContext } from "../context/CarritoContext";
+import { Link } from "react-router-dom";
+import { formatearDinero } from "../funciones";
 
 const Navbar = () => {
-  const { auth, logout } = useAuth();
+  const { auth } = useAuth();
+  const { carrito, vaciarCarrito, setCarrito } = useContext(CarritoContext);
+  const [carritoVisible, setCarritoVisible] = useState(false);
+
+  const toggleCarrito = () => setCarritoVisible(!carritoVisible);
+
+  const calcularTotal = () =>
+    carrito.reduce((acc, item) => acc + item.Subtotal, 0);
+
+  const eliminarProducto = (index) => {
+    const nuevo = carrito.filter((_, i) => i !== index);
+    setCarrito(nuevo);
+  };
+
+  const manejarCambioCantidad = (index, nuevaCantidad) => {
+    if (nuevaCantidad < 1) return eliminarProducto(index);
+    const nuevo = carrito.map((item, i) =>
+      i === index
+        ? {
+            ...item,
+            Cantidad: nuevaCantidad,
+            Subtotal: nuevaCantidad * item.Precio,
+          }
+        : item
+    );
+    setCarrito(nuevo);
+  };
 
   useEffect(() => {
     $(document).foundation();
@@ -35,7 +65,6 @@ const Navbar = () => {
 
     const replaceGTranslateTextWithIcon = () => {
       const translateFonts = document.querySelectorAll("font");
-
       translateFonts.forEach((font) => {
         if (font.textContent.includes("g_traducir")) {
           font.innerHTML =
@@ -44,17 +73,12 @@ const Navbar = () => {
       });
     };
 
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach(() => {
-        replaceGTranslateTextWithIcon();
-      });
+    const observer = new MutationObserver(() => {
+      replaceGTranslateTextWithIcon();
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -125,30 +149,93 @@ const Navbar = () => {
             </li>
             <li>
               <a className="link-12" href="/api">
-                API
+                UBICACIÓN
               </a>
             </li>
             <li>
-            <a className="link-12" href="/icecreamcustomizer">
+              <a className="link-12" href="/icecreamcustomizer">
                 CREA
               </a>
             </li>
-            
 
+            {/* CARRITO */}
+            <li className="link-12" style={{ position: "relative" }}>
+              <a href="#" onClick={toggleCarrito}>
+                <BsCart2 /> ({carrito.length})
+              </a>
+              {carritoVisible && (
+                <div className="carrito-dropdown">
+                  {carrito.length === 0 ? (
+                    <p className="text-center">Carrito vacío</p>
+                  ) : (
+                    <table>
+                      <tbody>
+                        {carrito.map((p, i) => (
+                          <tr key={p.Producto + i}>
+                            <td>
+                              <img src={p.Imagen} width="40" alt={p.Producto} />
+                            </td>
+                            <td>
+                              {p.Producto} x {p.Tamaño}
+                              <br />
+                              <small>{formatearDinero(p.Precio)}</small>
+                            </td>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  manejarCambioCantidad(i, p.Cantidad - 1)
+                                }
+                              >
+                                -
+                              </button>
+                              {p.Cantidad}
+                              <button
+                                onClick={() =>
+                                  manejarCambioCantidad(i, p.Cantidad + 1)
+                                }
+                              >
+                                +
+                              </button>
+                            </td>
+                            <td>{formatearDinero(p.Subtotal)}</td>
+                            <td>
+                              <button onClick={() => eliminarProducto(i)}>
+                                <BsTrash3 />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                  {carrito.length > 0 && (
+                    <>
+                      <div className="carrito-total">
+                        <strong>Total:</strong>{" "}
+                        {formatearDinero(calcularTotal())}
+                      </div>
+                      <div className="carrito-botones">
+                        <button onClick={vaciarCarrito}>Vaciar</button>
+                        <Link to="/realizarPedido">Comprar</Link>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </li>
 
-            {/* Mostrar nombre o ícono de login */}
+            {/* LOGIN */}
             {auth.isAuthenticated ? (
-              <>
-                <li>
-                <a href="/profile" className="link-12" style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-  <FaUser />
-  {auth.user?.username || "Usuario"}
-</a>
-
-                </li>
-                <li>
-                </li>
-              </>
+              <li>
+                <a
+                  href="/profile"
+                  className="link-12"
+                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
+                >
+                  <FaUser />
+                  {auth.user?.username || "Usuario"}
+                </a>
+              </li>
             ) : (
               <li>
                 <a className="link-12" href="/login">

@@ -20,6 +20,7 @@ import Profile from "./components/Profile.jsx";
 import Usuarios from "./components/Usuarios.jsx";
 import Inventario from "./components/Inventario.jsx";
 import IceCreamCustomizer from "./components/IceCreamCustomizer.jsx";
+import RealizarPedido from "./components/RealizarPedido.jsx";
 
 import { useAuth } from "./context/AuthContext";
 
@@ -79,6 +80,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/galeria" element={<Galeria />} />
           <Route path="/icecreamcustomizer" element={<IceCreamCustomizer />} />
+          <Route path="/realizarPedido" element={<RealizarPedido />} />
 
           {/* RUTA PROTEGIDA: perfil solo para usuarios logueados */}
           <Route

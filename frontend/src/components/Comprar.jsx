@@ -1,22 +1,48 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+// src/components/Comprar.jsx
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import $ from "jquery";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 import "foundation-sites/dist/css/foundation.min.css";
 import "foundation-sites/dist/js/foundation.min.js";
 import products from "../js/productos";
 import "../styles/Comprar.css";
 import NotFoundComprar from "../components/NotFoundComprar.jsx";
+import { CarritoContext } from "../context/CarritoContext";
 
 const Comprar = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id)); // Encuentra el producto por ID
+  const navigate = useNavigate();
+  const { agregarProducto } = useContext(CarritoContext);
+  const product = products.find((p) => p.id === parseInt(id, 10));
+
+  const [cantidad, setCantidad] = useState(1);
 
   useEffect(() => {
     $(document).foundation();
     window.scrollTo(0, 0);
   }, []);
 
-  if (!product) return <NotFoundComprar/>;
+  if (!product) return <NotFoundComprar />;
+
+  // Convierte el precio de string ("6.500") a número (6500)
+  const precioNumero = Number(product.precio.replace(/\./g, ""));
+
+  const handleAgregarAlCarrito = () => {
+    agregarProducto({
+      Producto: product.titulo,
+      Imagen: product.imagen_grande, // Asegúrate de que esta propiedad sea la correcta
+      Complemento: "",
+      Tamaño: "Estándar",
+      Unidad: "unidad",
+      Precio: precioNumero,
+      Cantidad: cantidad,
+    });
+    Swal.fire("Agregado", "Producto agregado al carrito", "success");
+    // Opcional: redirigir al carrito
+    // navigate("/realizarPedido");
+  };
 
   return (
     <div>
@@ -57,22 +83,29 @@ const Comprar = () => {
           </p>
           <div className="row">
             <div className="small-3 columns">
-              <label htmlFor="middle-label" className="middle">
-                Cantidad: 
+              <label htmlFor="cantidad-input" className="middle">
+                Cantidad:
               </label>
             </div>
             <div className="small-9 columns">
               <input
                 type="number"
-                id="middle-label"
-                placeholder="Total"
+                id="cantidad-input"
                 min="1"
-                defaultValue="0"
                 max="100"
+                value={cantidad}
+                onChange={(e) =>
+                  setCantidad(Math.max(1, parseInt(e.target.value, 10) || 1))
+                }
               />
             </div>
           </div>
-          <button className="button large expanded">Comprar Ahora</button>
+          <button
+            className="button large expanded"
+            onClick={handleAgregarAlCarrito}
+          >
+            Comprar Ahora
+          </button>
         </div>
       </div>
     </div>

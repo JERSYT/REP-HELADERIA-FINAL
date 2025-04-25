@@ -1,0 +1,131 @@
+.realizarPedido {
+  background-color: #1e1e1e;
+  color: #f9f9f9;
+  font-family: "Arial", sans-serif;
+  padding: 2rem;
+}
+
+.realizarPedido-contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.realizarPedido-contenedor1,
+.realizarPedido-carritoContenedor {
+  background: #fff;
+  color: #333;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.realizarPedido-contenedor_titulo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.realizarPedido-contenedor_titulo h2 {
+  font-size: 2rem;
+  color: #009688;
+}
+
+.realizarPedido-contenedor_titulo_iconoVolver {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #009688;
+  transition: color 0.3s ease;
+}
+
+.realizarPedido-contenedor_titulo_iconoVolver:hover {
+  color: #00796b;
+}
+
+.realizarPedido-contenedor_formulario label {
+  font-weight: bold;
+  display: block;
+  margin-top: 1rem;
+}
+
+.realizarPedido-contenedor_formulario input,
+.realizarPedido-contenedor_formulario textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.realizarPedido-contenedor_formulario textarea {
+  resize: vertical;
+}
+
+.realizarPedido-contenedor_formulario button {
+  margin-top: 2rem;
+  background-color: #009688;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.realizarPedido-contenedor_formulario button:hover {
+  background-color: #00796b;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.realizarPedido-carritoTitulo {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #009688;
+}
+
+.realizarPedido-carritoContenido table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.realizarPedido-carritoContenido img {
+  width: 50px;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.realizarPedido-carritoTbody td {
+  padding: 0.5rem;
+  vertical-align: top;
+  font-size: 0.95rem;
+}
+
+.navegacion-carritoEncabezado td {
+  font-weight: bold;
+  background-color: #f1f1f1;
+  border-bottom: 2px solid #ccc;
+}
+
+.realizarPedido-cantidad,
+.subtotal {
+  text-align: center;
+}
+
+.realizarPedido-carritoTotal {
+  margin-top: 1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+}

@@ -67,7 +67,6 @@ body {
   margin-right: 10px;
 }
 
-
 .VIpgJd-ZVi9od-ORHb {
   display: none !important;
   padding: 0 !important;
@@ -134,6 +133,198 @@ img {
 
 .menu-left {
   padding-top: 25px;
+}
+
+/* ----------------------------
+   Carrito desplegable en Navbar
+   ---------------------------- */
+.carrito-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  width: 350px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  z-index: 1500;
+  font-size: 0.8rem;
+  color: #333;
+  /* Ajustes iniciales */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar personalizado */
+.carrito-dropdown::-webkit-scrollbar {
+  width: 12px;
+}
+.carrito-dropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+.carrito-dropdown::-webkit-scrollbar-thumb {
+  background-color: #929292;
+  border-radius: 6px;
+  border: 2px solid #f1f1f1;
+}
+.carrito-dropdown::-webkit-scrollbar-thumb:hover {
+  background-color: #727272;
+}
+
+/* Tabla interna */
+.carrito-dropdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.carrito-dropdown table tr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Alineación para evitar que las imágenes se superpongan */
+}
+.carrito-dropdown table tr td {
+  flex: 1;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Encabezado de tabla */
+.carrito-dropdown table tr.header td {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Imagen del producto */
+.carrito-dropdown img {
+  width: 30px;
+  object-fit: cover;
+  border-radius: 0.2rem;
+  margin-left: 0;
+  flex-shrink: 0;
+  /* Añadimos un max-width para evitar que se agrande demasiado en pantallas grandes */
+  max-width: 100%;
+}
+
+/* Mensaje carrito vacío */
+.carrito-dropdown p {
+  text-align: center;
+  margin: 2rem 0;
+  color: #8f8e8e;
+  font-weight: 500;
+}
+
+/* Total del carrito */
+.carrito-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+/* Botones de acción */
+.carrito-botones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.carrito-botones button,
+.carrito-botones a {
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem;
+  margin: 0 0.3rem;
+  border: none;
+  border-radius: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+.carrito-botones button {
+  background-color: #e63946; /* Vaciar carrito */
+}
+.carrito-botones a {
+  background-color: #1fa17a; /* Comprar */
+}
+.carrito-botones button:hover {
+  background-color: #c62828;
+}
+.carrito-botones a:hover {
+  background-color: #157f60;
+}
+
+/* ----------------------
+     RESPONSIVO: Ajustes
+     ---------------------- */
+
+/* Pantallas pequeñas: */
+@media (max-width: 600px) {
+  .carrito-dropdown {
+    width: 90vw; /* 90% del ancho de la pantalla */
+    max-width: 400px; /* no superar 400px */
+    top: 70px; /* separarlo de la barra */
+    left: 50%; /* centrarlo horizontalmente */
+    right: auto; /* anula el right fijo */
+    transform: translateX(-50%); /* corrección de centro */
+  }
+
+  /* Ajustes en la imagen */
+  .carrito-dropdown img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .carrito-total {
+    font-size: 0.9rem;
+  }
+
+  .carrito-botones button,
+  .carrito-botones a {
+    padding: 0.5rem;
+  }
+}
+
+/* Pantallas medianas: */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .carrito-dropdown {
+    width: 70vw; /* 70% del ancho de la pantalla */
+    top: 70px;
+    left: 50%; /* centrarlo horizontalmente */
+    right: auto; /* anula el right fijo */
+    transform: translateX(-50%); /* corrección de centro */
+  }
+
+  /* Ajustes en la imagen */
+  .carrito-dropdown img {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .carrito-total {
+    font-size: 1rem;
+  }
+}
+
+/* Pantallas grandes: */
+@media (min-width: 1025px) {
+  .carrito-dropdown {
+    width: 350px; /* Tamaño fijo para pantallas grandes */
+    top: 50px;
+  }
+
+  /* Ajustes en la imagen */
+  .carrito-dropdown img {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .carrito-total {
+    font-size: 1rem;
+  }
 }
 
 /* Estilos para pantallas pequeñas */
