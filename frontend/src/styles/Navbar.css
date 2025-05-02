@@ -126,6 +126,26 @@ ul.menu {
   color: #a180e1 !important;
 }
 
+.carrito-item a {
+  color: #fa52a0 !important;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  display: inline-block;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding-bottom: 15px;
+  transition: none !important;
+  transform: none !important;
+}
+
+.carrito-item a:hover {
+  color: #fa52a0 !important;
+  transform: none !important;
+}
+
 img {
   width: 165px;
   margin-left: 30px;
@@ -231,6 +251,7 @@ img {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
+  color: #fff;
 }
 .carrito-botones button,
 .carrito-botones a {
@@ -241,6 +262,7 @@ img {
   border: none;
   border-radius: 0.5rem;
   color: #fff;
+  font-size: 15px;
   text-decoration: none;
   font-weight: 500;
 }
@@ -248,13 +270,13 @@ img {
   background-color: #e63946; /* Vaciar carrito */
 }
 .carrito-botones a {
-  background-color: #1fa17a; /* Comprar */
+  background-color: #fbdbea; /* Comprar */
 }
 .carrito-botones button:hover {
   background-color: #c62828;
 }
 .carrito-botones a:hover {
-  background-color: #157f60;
+  background-color: #d1b6c3;
 }
 
 /* ----------------------

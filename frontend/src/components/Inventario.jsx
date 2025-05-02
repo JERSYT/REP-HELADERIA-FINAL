@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import api from "../components/axios";
 import "sweetalert2/dist/sweetalert2.min.css";
 import "foundation-sites/dist/css/foundation.min.css";
+import "../styles/Inventario.css";
 
 const Inventario = () => {
   const [ingredientes, setIngredientes] = useState([]);

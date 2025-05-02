@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "foundation-sites/dist/css/foundation.min.css";
 import "foundation-sites/dist/js/foundation.min.js";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar.jsx";
 import Headers from "./components/Header.jsx";
@@ -48,7 +48,9 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-function App() {
+// Componente separado para permitir usar useLocation
+function AppContent() {
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -58,64 +60,70 @@ function App() {
 
   if (isLoading) return <LoadingScreen />;
 
+  const hideFooterRoutes = ["/admin/inventario", "/admin/usuarios"];
+  const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
+
   return (
     <div>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Headers />
-                <Relevantes />
-              </>
-            }
-          />
-          <Route path="/productos" element={<Productos />} />
-          <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/api" element={<Api />} />
-          <Route path="/comprar/:id" element={<Comprar />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/galeria" element={<Galeria />} />
-          <Route path="/icecreamcustomizer" element={<IceCreamCustomizer />} />
-          <Route path="/realizarPedido" element={<RealizarPedido />} />
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Headers />
+              <Relevantes />
+            </>
+          }
+        />
+        <Route path="/productos" element={<Productos />} />
+        <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/api" element={<Api />} />
+        <Route path="/comprar/:id" element={<Comprar />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/galeria" element={<Galeria />} />
+        <Route path="/icecreamcustomizer" element={<IceCreamCustomizer />} />
+        <Route path="/realizarPedido" element={<RealizarPedido />} />
 
-          {/* RUTA PROTEGIDA: perfil solo para usuarios logueados */}
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }
-          />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
 
-          {/* RUTAS PROTEGIDAS SOLO PARA ADMIN */}
-          <Route
-            path="/admin/usuarios"
-            element={
-              <ProtectedRoute>
-                <Usuarios />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/inventario"
-            element={
-              <ProtectedRoute>
-                <Inventario />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/usuarios"
+          element={
+            <ProtectedRoute>
+              <Usuarios />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/inventario"
+          element={
+            <ProtectedRoute>
+              <Inventario />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      {!shouldHideFooter && <Footer />}
     </div>
   );
 }
 
-export default App;
+// Exporta App con el BrowserRouter externo
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
+}

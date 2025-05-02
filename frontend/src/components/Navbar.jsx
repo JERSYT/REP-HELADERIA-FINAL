@@ -159,7 +159,7 @@ const Navbar = () => {
             </li>
 
             {/* CARRITO */}
-            <li className="link-12" style={{ position: "relative" }}>
+            <li className="carrito-item" style={{ position: "relative" }}>
               <a href="#" onClick={toggleCarrito}>
                 <BsCart2 /> ({carrito.length})
               </a>

@@ -91,6 +91,7 @@ const RealizarPedido = () => {
 
   return (
     <div className="realizarPedido">
+        <div className="mural-conos"></div>
       <div className="realizarPedido-contenedor">
         <div className="realizarPedido-contenedor1">
           <div className="realizarPedido-contenedor_titulo">
@@ -109,6 +110,9 @@ const RealizarPedido = () => {
               <input
                 type="number"
                 name="cedula"
+                placeholder="Cédula o NIT sin dígito de verificación"
+                min="0"
+                className="formulario-input"
                 value={datosFormulario.cedula}
                 onChange={manejarCambio}
               />
@@ -118,6 +122,7 @@ const RealizarPedido = () => {
               <label>Nombres y Apellidos completos</label>
               <input
                 name="nombreCompleto"
+                placeholder="Ingrese su Nombre(s) y Apellido(s) completos"
                 value={datosFormulario.nombreCompleto}
                 onChange={manejarCambio}
               />
@@ -129,7 +134,7 @@ const RealizarPedido = () => {
               <label>Dirección</label>
               <input
                 name="direccion"
-                placeholder="Dirección con nomenclatura completa (casa o unidad, bloque y # apto, barrio-localidad)"
+                placeholder="Ingrese su Dirección con nomenclatura completa"
                 value={datosFormulario.direccion}
                 onChange={manejarCambio}
               />
@@ -142,6 +147,8 @@ const RealizarPedido = () => {
               <input
                 type="number"
                 name="celular"
+                placeholder="Ingresa tu Número de Celular"
+                min="0"
                 value={datosFormulario.celular}
                 onChange={manejarCambio}
               />
@@ -151,6 +158,8 @@ const RealizarPedido = () => {
               <label>Dirección de correo electrónico</label>
               <input
                 name="correoElectronico"
+                placeholder="Ingrese su Dirección de Correo electrónico"
+                type="email"
                 value={datosFormulario.correoElectronico}
                 onChange={manejarCambio}
               />
@@ -232,7 +241,7 @@ const RealizarPedido = () => {
           {carrito.length > 0 && (
             <div className="realizarPedido-carritoTotal">
               <p className="totalLabel">Total A Pagar:</p>
-              <p>{formatearDinero(calcularTotal(), "COP")}</p>
+              <p className="totalLabel">{formatearDinero(calcularTotal(), "COP")}</p>
             </div>
           )}
         </div>

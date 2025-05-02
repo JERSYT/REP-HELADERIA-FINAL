@@ -104,7 +104,7 @@ const Comprar = () => {
             className="button large expanded"
             onClick={handleAgregarAlCarrito}
           >
-            Comprar Ahora
+            Agregar al carrito
           </button>
         </div>
       </div>
