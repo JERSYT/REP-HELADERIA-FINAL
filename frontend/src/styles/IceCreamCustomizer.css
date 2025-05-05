@@ -213,6 +213,121 @@
     font-style: normal;  
 }
 
+/* Estilos para la visualización del helado */
+.helado-visual-container {
+position: relative;
+width: 220px;
+height: 300px;
+margin: 0 auto;
+
+}
+
+.ice-cream-base {
+position: relative;
+width: 200px;
+height: 100%;
+}
+
+.presentacion-imagen {
+position: absolute;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+height: 150px;
+z-index: 1;
+}
+
+.sabores-piramide {
+position: relative;
+width: 220px;
+height: 300px;
+bottom: 80px;
+left: 0;
+}
+.bola-container{
+position: absolute;
+width: 100%;
+height: 100%;
+}
+
+.sabor-bola {
+    position: absolute;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.bola-inferior {
+width: 100px;
+height: 100px;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+}
+
+.bola-superior-izquierda {
+width: 70px;
+height: 70px;
+bottom: 70px;
+left: 35%;
+}
+
+.bola-superior-derecha {
+width: 70px;
+height: 70px;
+bottom: 70px;
+left: 65%;
+}
+
+.toppings-distribucion {
+position: absolute;
+width: 100%;
+height: 100%;
+bottom: 40px;
+left: 0;
+z-index: 3;
+}
+
+.topping-item {
+position: absolute;
+width: 40px;
+height: 40px;
+object-fit: contain;
+filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+z-index: 2;
+}
+
+.topping-inferior{
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.topping-izquierda {
+    bottom: 90px;
+    left: 25%;
+}
+
+.topping-derecha {
+    bottom: 90px;
+    left: 65%;
+}
+
+/* Ajustes piramide*/
+
+.sabor-bola:nth-child(1) {
+/* Bola inferior */
+width: 90px !important;
+height: 90px !important;
+}
+
+.sabor-bola:nth-child(2),
+.sabor-bola:nth-child(3) {
+/* Bolas superiores */
+width: 70px !important;
+height: 70px !important;
+}
 
 .seleccion-cuenta {
     display: flex;
@@ -257,7 +372,7 @@
 .presentacion-imagen {
     position: absolute;
     bottom: 0;
-    left: 50%;
+    left: 55%;
     transform: translateX(-50%);
     height: 200px;
     z-index: 1;
@@ -292,10 +407,10 @@
 
 .toppings-layer {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+    width: 120%; /* Aumenta el ancho */
+    height: 120%; /* Aumenta la altura */
+    top: -10%; /* Ajusta la posición */
+    left: -10%; /* Ajusta la posición */
     z-index: 3;
     display: flex;
     justify-content: center;
@@ -303,8 +418,8 @@
 }
 
 .topping-item {
-    width: 35px;
-    height: 35px;
+    width: 70px; /* Aumenta de 35px a 50px */
+    height: 70px; /* Aumenta de 35px a 50px */
     object-fit: contain;
     animation: float 3s infinite ease-in-out;
     filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
@@ -312,21 +427,15 @@
 }
 
 @keyframes float {
-    0%, 100% { transform: 
-        translate(-50%, -50%) 
-        rotate(0deg)
-        translate(0, -30px)
-        rotate(0deg); 
-        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)); 
-    }
-    50% { transform: 
-        translate(-50%, -50%) 
-        rotate(5deg)
-        translate(0, -50px)
-        rotate(-5deg); 
-        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
-    }
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
 }
+
+.topping-item {
+animation: float 3s infinite ease-in-out;
+}
+
+
 
 /* Botones de acción */
 .previa-footer {
@@ -350,8 +459,6 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    height: 48px;
-    box-sizing: border-box;
 }
 
 .reset-btn {
@@ -369,8 +476,6 @@
 .guardar-btn {
     background:  #FA52A0;
     color: white;
-    padding: 14px 10px;
-    white-space: nowrap;
 }
 
 .guardar-btn:hover {
@@ -449,8 +554,6 @@
     background: #f9f9f9;
     border-radius: 20px;
     height: 100%;
-    min-height: 48px;
-    box-sizing: border-box;
 }
 
 .total-label {
@@ -490,3 +593,47 @@
     border-top: 1px solid #f0f0f0;
     align-items: center;
 }
+
+/* Estilos validación*/
+.mensaje-validacion {
+    color: #7783ec;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    text-align: center;
+    padding: 0.5rem;
+    background-color: rgba(255, 71, 87, 0.1);
+    border-radius: 8px;
+}
+
+  /* Estilo para selectores incompletos */
+.grupo-selector.incompleto {
+    border: 2px solid rgba(255, 71, 87, 0.3);
+    border-radius: 12px;
+    padding: 0.5rem;
+}
+  
+
+  /* Estilos para la visualización del helado */
+.helado-visual-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    margin: 1rem 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    padding: 1rem;
+}
+  
+  /* Botón deshabilitado */
+  .accion-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #ccc !important;
+  }
+  
+  /* Ajustes para la vista previa */
+  .ice-cream-previa {
+    min-height: auto;
+    perspective: none;
+  }

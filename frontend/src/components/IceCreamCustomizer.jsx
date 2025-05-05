@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "../styles/IceCreamCustomizer.css";
 import Hchocolate from "../img/Personalizado/chocolate.webp";
 import Hvainilla from "../img/Personalizado/vainilla.webp";
@@ -15,28 +16,28 @@ import Arandanos from "../img/Personalizado/arandanos.webp";
 import Galleta from "../img/Personalizado/vasogalleta.webp";
 import Vaso from "../img/Personalizado/vaso.webp";
 
+
 const IceCreamCustomizer = () => {
   const Sabores = [
-    { id: 1, nombre: "Chocolate", imagen: Hchocolate, precio: 2000 },
-    { id: 2, nombre: "Vainilla", imagen: Hvainilla, precio: 2000 },
-    { id: 3, nombre: "Fresa", imagen: Hfresa, precio: 2000 },
-    { id: 4, nombre: "Arequipe", imagen: Harequipe, precio: 2000 },
+    { id: 1, nombre: "Chocolate", imagen: Hchocolate, precio: 2000, color: "#5C2D0D", layerHeight: 60 },
+    { id: 2, nombre: "Vainilla", imagen: Hvainilla, precio: 2000, color: "#F3E5AB", layerHeight: 60 },
+    { id: 3, nombre: "Fresa", imagen: Hfresa, precio: 2000, color: "#FC5A8D", layerHeight: 60 },
+    { id: 4, nombre: "Arequipe", imagen: Harequipe, precio: 2000, color: "#C08A53", layerHeight: 60 },
   ];
 
   const Toppings = [
-    { id: 1, nombre: "Chispas de Chocolate", imagen: Chipschoc, precio: 1000 },
-    { id: 2, nombre: "Gomitas", imagen: Gomitas, precio: 1000 },
-    { id: 3, nombre: "Brownies", imagen: Brownies, precio: 1000 },
-    { id: 4, nombre: "Fresas", imagen: Fresas, precio: 1000 },
-    { id: 5, nombre: "Marshmellow", imagen: Marshmellow, precio: 1000 },
-    { id: 6, nombre: "Gusanitos", imagen: Gusanitos, precio: 1000 },
-    { id: 7, nombre: "Almendras", imagen: Almendras, precio: 1000 },
-    { id: 8, nombre: "Arandanos", imagen: Arandanos, precio: 1500 },
+    { id: 1, nombre: "Chispas de Chocolate", imagen: Chipschoc, precio: 1000, position: { angle: 0, radius: 30 } },
+    { id: 2, nombre: "Gomitas", imagen: Gomitas, precio: 1000, position: { angle: 180, radius: 30 } },
+    { id: 3, nombre: "Brownies", imagen: Brownies, precio: 1000, position: { angle: 90, radius: 30 } },
+    { id: 4, nombre: "Fresas", imagen: Fresas, precio: 1000, position: { angle: 270, radius: 30 } },
+    { id: 5, nombre: "Marshmellow", imagen: Marshmellow, precio: 1000, position: { angle: 45, radius: 40 } },
+    { id: 6, nombre: "Gusanitos", imagen: Gusanitos, precio: 1000, position: { angle: 135, radius: 40 } },
+    { id: 7, nombre: "Almendras", imagen: Almendras, precio: 1000, position: { angle: 225, radius: 40 } },
+    { id: 8, nombre: "Arandanos", imagen: Arandanos, precio: 1500, position: { angle: 315, radius: 40 } },
   ];
 
   const Presentaciones = [
-    { id: 1, nombre: "Cono", imagen: Galleta },
-    { id: 2, nombre: "Vaso", imagen: Vaso },
+    { id: 1, nombre: "Canasta", imagen: Galleta },
   ];
 
   // Estados
@@ -45,8 +46,8 @@ const IceCreamCustomizer = () => {
   const [presentacionSeleccionada, setPresentacionSeleccionada] = useState(
     Presentaciones[0]
   );
-  const [maxSaboresAlcanzado, setMaxSaboresAlcanzado] = useState(false);
-  const [maxToppingsAlcanzado, setMaxToppingsAlcanzado] = useState(false);
+  const [saboresCompletos, setSaboresCompletos] = useState(false);
+  const [toppingsCompletos, setToppingsCompletos] = useState(false);
 
   // Calcular precio total
   const calcularTotal = () => {
@@ -68,11 +69,12 @@ const IceCreamCustomizer = () => {
       setSaboresSeleccionados(
         saborSeleccionado.filter((f) => f.id !== sabor.id)
       );
-      setMaxSaboresAlcanzado(false);
+      setSaboresCompletos(false);
     } else if (saborSeleccionado.length < 3) {
       // Si no está seleccionado y no hemos alcanzado el límite, lo añadimos
-      setSaboresSeleccionados([...saborSeleccionado, sabor]);
-      setMaxSaboresAlcanzado(saborSeleccionado.length + 1 >= 3);
+      const nuevosSabores = [...saborSeleccionado, sabor];
+      setSaboresSeleccionados(nuevosSabores);
+      setSaboresCompletos(nuevosSabores.length === 3);
     }
   };
 
@@ -82,19 +84,120 @@ const IceCreamCustomizer = () => {
       setToppingSeleccionados(
         toppingSeleccionados.filter((t) => t.id !== topping.id)
       );
-      setMaxToppingsAlcanzado(false);
-    } else if (toppingSeleccionados.length < 5) {
+      setToppingsCompletos(false);
+    } else if (toppingSeleccionados.length < 3) {
       // Si no está seleccionado y no hemos alcanzado el límite, lo añadimos
-      setToppingSeleccionados([...toppingSeleccionados, topping]);
-      setMaxToppingsAlcanzado(toppingSeleccionados.length + 1 >= 5);
-    }
+      const nuevosToppings = [...toppingSeleccionados, topping];
+      setToppingSeleccionados(nuevosToppings);
+      setToppingsCompletos(nuevosToppings.length === 3);
+      }
+    
   };
 
   const resetSeleccion = () => {
     setSaboresSeleccionados([]);
     setToppingSeleccionados([]);
-    setMaxSaboresAlcanzado(false);
-    setMaxToppingsAlcanzado(false);
+    setSaboresCompletos(false);
+    setToppingsCompletos(false);
+  };
+
+  // Renderizado visual del helado
+
+  const renderHeladoVisual = () => {
+    return (
+      <div className="helado-visual-container">
+        {/* Presentación (cono o vaso) */}
+        <img
+          src={presentacionSeleccionada.imagen}
+          alt="presentacion"
+          className="presentacion-imagen"
+        />
+  
+        {/* Contenedor de sabores en pirámide */}
+        <div className="sabores-piramide">
+        {/* Grupo Bola Inferior + Toppings */}
+        {saborSeleccionado[0] && (
+          <div className="bola-container" style={{ zIndex: 3 }}>
+            <motion.div
+              className="sabor-bola bola-inferior"
+              style={{
+                backgroundImage: `url(${saborSeleccionado[0].imagen})`,
+                backgroundColor: saborSeleccionado[0].color
+              }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+            {/* Toppings para esta bola */}
+            {toppingSeleccionados[0] && (
+              <motion.img
+                src={toppingSeleccionados[0].imagen}
+                alt={toppingSeleccionados[0].nombre}
+                className="topping-item topping-inferior"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.4 }}
+              />
+            )}
+          </div>
+        )}
+
+        {/* Grupo Bola Superior Izquierda + Toppings */}
+        {saborSeleccionado[1] && (
+          <div className="bola-container" style={{ zIndex: 2 }}>
+            <motion.div
+              className="sabor-bola bola-superior-izquierda"
+              style={{
+                backgroundImage: `url(${saborSeleccionado[1].imagen})`,
+                backgroundColor: saborSeleccionado[1].color
+              }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            />
+            {/* Toppings para esta bola */}
+            {toppingSeleccionados[1] && (
+              <motion.img
+                src={toppingSeleccionados[1].imagen}
+                alt={toppingSeleccionados[1].nombre}
+                className="topping-item topping-izquierda"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.5 }}
+              />
+            )}
+          </div>
+        )}
+
+        {/* Grupo Bola Superior Derecha + Toppings */}
+        {saborSeleccionado[2] && (
+          <div className="bola-container" style={{ zIndex: 1 }}>
+            <motion.div
+              className="sabor-bola bola-superior-derecha"
+              style={{
+                backgroundImage: `url(${saborSeleccionado[2].imagen})`,
+                backgroundColor: saborSeleccionado[2].color
+              }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            />
+            {/* Toppings para esta bola */}
+            {toppingSeleccionados[2] && (
+              <motion.img
+                src={toppingSeleccionados[2].imagen}
+                alt={toppingSeleccionados[2].nombre}
+                className="topping-item topping-derecha"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.6 }}
+              />
+            )}
+          </div>
+        )}
+      </div>
+      </div>
+    );
   };
 
   return (
@@ -110,13 +213,22 @@ const IceCreamCustomizer = () => {
           {/* Selector de Sabores */}
           <div
             className={`grupo-selector ${
-              maxSaboresAlcanzado ? "max-limit-alert" : ""
+              !saboresCompletos && saborSeleccionado.length > 0 ? "incompleto" : ""
             }`}
           >
             <h3 className="seleccion-titulo">
               <span className="numero-paso"> 1 </span> Selecciona el sabor{" "}
-              <span className="max-indicador"> (Máx. 3)</span>
+              <span className="max-indicador"> (3 Sabores*)</span>
             </h3>
+
+            {/* Mensaje de validación */}
+            {!saboresCompletos && (
+              <div className="mensaje-validacion">
+                {saborSeleccionado.length < 3 
+                  ? `Selecciona ${3 - saborSeleccionado.length} más`
+                  : "¡Perfecto! 3 sabores seleccionados"}
+              </div>
+            )}
 
             <div className="items-grid">
               {Sabores.map((sabor) => (
@@ -140,13 +252,22 @@ const IceCreamCustomizer = () => {
           {/* Selector de Toppings */}
           <div
             className={`grupo-selector ${
-              maxToppingsAlcanzado ? "max-limit-alert" : ""
+              !toppingsCompletos && toppingSeleccionados.length > 0 ? "incompleto" : ""
             }`}
           >
             <h3 className="seleccion-titulo">
               <span className="numero-paso"> 2 </span> Selecciona toppings{" "}
-              <span className="max-indicador"> (Máx. 5)</span>
+              <span className="max-indicador"> (3 Toppings*)</span>
             </h3>
+
+            {/* Mensaje de validación */}
+            {!toppingsCompletos && (
+              <div className="mensaje-validacion">
+                {toppingSeleccionados.length < 2 
+                  ? `Selecciona ${2 - toppingSeleccionados.length} más`
+                  : "¡Perfecto! 2 toppings seleccionados"}
+              </div>
+            )}
 
             <div className="items-grid">
               {Toppings.map((topping) => (
@@ -170,8 +291,8 @@ const IceCreamCustomizer = () => {
           {/* Selector de Presentación */}
           <div className="grupo-selector">
             <h3 className="seleccion-titulo">
-              <span className="numero-paso"> 3 </span> Selecciona la
-              presentación
+              <span className="numero-paso"> 3 </span> 
+              Presentación
             </h3>
 
             <div className="presentaciones-opciones">
@@ -199,84 +320,35 @@ const IceCreamCustomizer = () => {
             <h3>Vista previa de tu helado</h3>
             <div className="seleccion-cuenta">
               <span>{saborSeleccionado.length}/3 sabores</span>
-              <span>{toppingSeleccionados.length}/5 toppings</span>
+              <span>{toppingSeleccionados.length}/3 toppings</span>
             </div>
           </div>
           {/* Presentación (Cono o Vaso) */}
           <div className="ice-cream-previa">
-            <div className="ice-cream-base">
-              <img
-                src={presentacionSeleccionada.imagen}
-                alt="presentacion"
-                className="presentacion-imagen"
-              />
-
-              {/* Capas de sabores - organizacion proporcional*/}
-              <div className="sabores-stack">
-                {saborSeleccionado.map((sabor, index) => (
-                  <div
-                    key={index}
-                    className="sabor-layer"
-                    style={{
-                      backgroundImage: `url(${sabor.imagen})`,
-                      zIndex: index,
-                      height: `${105 / saborSeleccionado.length}%`,
-                      bottom: `${(index * 100) / saborSeleccionado.length}%`,
-                      borderRadius: "100%",
-                    }}
-                  />
-                ))}
-              </div>
-              {/* distribución de toppings*/}
-              <div className="toppings-layer">
-                {toppingSeleccionados.map((topping, index) => {
-                  const angulo = (index * 360) / toppingSeleccionados.length;
-                  const radio = toppingSeleccionados.length > 3 ? 40 : 30;
-                  const altura =
-                    toppingSeleccionados.length > 3 ? "30%" : "40%";
-                  return (
-                    <img
-                      key={index}
-                      src={topping.imagen}
-                      alt={topping.nombre}
-                      className={`topping-item ${
-                        toppingSeleccionados.length >= 5 ? "max-limit" : ""
-                      }`}
-                      style={{
-                        position: "absolute",
-                        top: altura,
-                        left: "50%",
-                        transform: `
-                                                translate(-50%, -50%)
-                                                rotate(${angulo}deg)
-                                                translate(0, -${radio}px)
-                                                rotate(${-angulo}deg)
-                                                `,
-                        width:
-                          toppingSeleccionados.length > 3 ? "30px" : "35px",
-                        height:
-                          toppingSeleccionados.length > 3 ? "30px" : "35px",
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            </div>
+            {renderHeladoVisual()}
           </div>
+            
           <div className="previa-footer">
-            <button onClick={resetSeleccion} className="accion-btn reset-btn">
-              Reiniciar
-            </button>
-            <button className="accion-btn guardar-btn">Guardar Helado</button>
+          <button onClick={resetSeleccion} className="accion-btn reset-btn">
+            Reiniciar
+          </button>
+          <button 
+            className={`accion-btn guardar-btn ${
+              !(saboresCompletos && toppingsCompletos) ? "disabled" : ""
+            }`}
+            disabled={!(saboresCompletos && toppingsCompletos)}
+          >
+            Guardar
+          </button>
 
-            <div className="total-container">
-              <span className="total-label">Total:</span>
-              <span className="total-precio">
-                ${calcularTotal().toFixed(2)}
-              </span>
-            </div>
+          <div className="total-container">
+            <span className="total-label">Total:</span>
+            <span className="total-precio">
+              ${calcularTotal().toFixed(2)}
+            </span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
