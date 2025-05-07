@@ -176,7 +176,7 @@ const Navbar = () => {
                               <img src={p.Imagen} width="40" alt={p.Producto} />
                             </td>
                             <td>
-                              {p.Producto} x {p.Tamaño}
+                            {p.Personalizado ? "Helado personalizado " : p.Producto} x {p.Tamaño}
                               <br />
                               <small>{formatearDinero(p.Precio)}</small>
                             </td>

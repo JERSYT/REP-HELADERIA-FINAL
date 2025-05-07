@@ -1,4 +1,3 @@
-// src/context/CarritoContext.jsx
 import React, { createContext, useState, useEffect } from "react";
 
 // Crear el contexto
@@ -36,15 +35,44 @@ export const CarritoProvider = ({ children }) => {
 
   // Función para agregar un producto
   const agregarProducto = (producto) => {
-    const productoExistente = carrito.find(
-      (item) =>
-        item.Producto === producto.Producto && item.Tamaño === producto.Tamaño
-    );
+    const productoExistente = carrito.find((item) => {
+      // Verificamos si el producto es personalizado
+      if (producto.Personalizado) {
+        // Comparamos sabores y toppings para identificar el producto personalizado
+        const mismosSabores =
+          Array.isArray(item.Sabores) &&
+          Array.isArray(producto.Sabores) &&
+          item.Sabores.length === producto.Sabores.length &&
+          item.Sabores.every((sabor, idx) => sabor === producto.Sabores[idx]);
+        const mismosToppings =
+          Array.isArray(item.Toppings) &&
+          Array.isArray(producto.Toppings) &&
+          item.Toppings.length === producto.Toppings.length &&
+          item.Toppings.every((topping, idx) => topping === producto.Toppings[idx]);
+        return (
+          item.Personalizado &&
+          mismosSabores &&
+          mismosToppings
+        );
+      } else {
+        return item.Producto === producto.Producto && item.Tamaño === producto.Tamaño;
+      }
+    });
 
     let nuevoCarrito;
     if (productoExistente) {
       nuevoCarrito = carrito.map((item) =>
-        item.Producto === producto.Producto && item.Tamaño === producto.Tamaño
+        (producto.Personalizado &&
+          item.Personalizado &&
+          Array.isArray(item.Sabores) &&
+          Array.isArray(producto.Sabores) &&
+          item.Sabores.length === producto.Sabores.length &&
+          item.Sabores.every((sabor, idx) => sabor === producto.Sabores[idx]) &&
+          Array.isArray(item.Toppings) &&
+          Array.isArray(producto.Toppings) &&
+          item.Toppings.length === producto.Toppings.length &&
+          item.Toppings.every((topping, idx) => topping === producto.Toppings[idx])) ||
+        (!producto.Personalizado && item.Producto === producto.Producto && item.Tamaño === producto.Tamaño)
           ? {
               ...item,
               Cantidad: item.Cantidad + producto.Cantidad,

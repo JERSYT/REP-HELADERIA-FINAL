@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import "../styles/IceCreamCustomizer.css";
+import { CarritoContext } from "../context/CarritoContext";
 import Hchocolate from "../img/Personalizado/chocolate.webp";
 import Hvainilla from "../img/Personalizado/vainilla.webp";
 import Hfresa from "../img/Personalizado/fresa.webp";
@@ -16,8 +17,9 @@ import Arandanos from "../img/Personalizado/arandanos.webp";
 import Galleta from "../img/Personalizado/vasogalleta.webp";
 import Vaso from "../img/Personalizado/vaso.webp";
 
-
 const IceCreamCustomizer = () => {
+  const { agregarProducto } = useContext(CarritoContext);
+
   const Sabores = [
     { id: 1, nombre: "Chocolate", imagen: Hchocolate, precio: 2000, color: "#5C2D0D", layerHeight: 60 },
     { id: 2, nombre: "Vainilla", imagen: Hvainilla, precio: 2000, color: "#F3E5AB", layerHeight: 60 },
@@ -90,8 +92,7 @@ const IceCreamCustomizer = () => {
       const nuevosToppings = [...toppingSeleccionados, topping];
       setToppingSeleccionados(nuevosToppings);
       setToppingsCompletos(nuevosToppings.length === 3);
-      }
-    
+    }
   };
 
   const resetSeleccion = () => {
@@ -99,6 +100,25 @@ const IceCreamCustomizer = () => {
     setToppingSeleccionados([]);
     setSaboresCompletos(false);
     setToppingsCompletos(false);
+  };
+
+  // Función para agregar helado personalizado al carrito con IDs únicos
+  const handleGuardar = () => {
+    if (saboresCompletos && toppingsCompletos) {
+      const productoPersonalizado = {
+        Personalizado: true,
+        Sabores: saborSeleccionado.map((s, index) => ({ ...s, id: index + 1000, nombre: s.nombre })),
+        Toppings: toppingSeleccionados.map((t, index) => ({ ...t, id: index + 2000, nombre: t.nombre })),
+        Cantidad: 1,
+        Precio: calcularTotal(),
+        Presentacion: presentacionSeleccionada.nombre,
+        Imagen: Galleta, // Imagen fija para el carrito
+        // Generar un id para el producto personalizado mismo, puede ser combinación o único
+        id: Date.now(), // id único basado en timestamp para evitar colisiones
+      };
+      agregarProducto(productoPersonalizado);
+      resetSeleccion();
+    }
   };
 
   // Renderizado visual del helado
@@ -112,90 +132,90 @@ const IceCreamCustomizer = () => {
           alt="presentacion"
           className="presentacion-imagen"
         />
-  
+
         {/* Contenedor de sabores en pirámide */}
         <div className="sabores-piramide">
-        {/* Grupo Bola Inferior + Toppings */}
-        {saborSeleccionado[0] && (
-          <div className="bola-container" style={{ zIndex: 3 }}>
-            <motion.div
-              className="sabor-bola bola-inferior"
-              style={{
-                backgroundImage: `url(${saborSeleccionado[0].imagen})`,
-                backgroundColor: saborSeleccionado[0].color
-              }}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            {/* Toppings para esta bola */}
-            {toppingSeleccionados[0] && (
-              <motion.img
-                src={toppingSeleccionados[0].imagen}
-                alt={toppingSeleccionados[0].nombre}
-                className="topping-item topping-inferior"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.4 }}
+          {/* Grupo Bola Inferior + Toppings */}
+          {saborSeleccionado[0] && (
+            <div className="bola-container" style={{ zIndex: 3 }}>
+              <motion.div
+                className="sabor-bola bola-inferior"
+                style={{
+                  backgroundImage: `url(${saborSeleccionado[0].imagen})`,
+                  backgroundColor: saborSeleccionado[0].color
+                }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
               />
-            )}
-          </div>
-        )}
+              {/* Toppings para esta bola */}
+              {toppingSeleccionados[0] && (
+                <motion.img
+                  src={toppingSeleccionados[0].imagen}
+                  alt={toppingSeleccionados[0].nombre}
+                  className="topping-item topping-inferior"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.4 }}
+                />
+              )}
+            </div>
+          )}
 
-        {/* Grupo Bola Superior Izquierda + Toppings */}
-        {saborSeleccionado[1] && (
-          <div className="bola-container" style={{ zIndex: 2 }}>
-            <motion.div
-              className="sabor-bola bola-superior-izquierda"
-              style={{
-                backgroundImage: `url(${saborSeleccionado[1].imagen})`,
-                backgroundColor: saborSeleccionado[1].color
-              }}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-            />
-            {/* Toppings para esta bola */}
-            {toppingSeleccionados[1] && (
-              <motion.img
-                src={toppingSeleccionados[1].imagen}
-                alt={toppingSeleccionados[1].nombre}
-                className="topping-item topping-izquierda"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.5 }}
+          {/* Grupo Bola Superior Izquierda + Toppings */}
+          {saborSeleccionado[1] && (
+            <div className="bola-container" style={{ zIndex: 2 }}>
+              <motion.div
+                className="sabor-bola bola-superior-izquierda"
+                style={{
+                  backgroundImage: `url(${saborSeleccionado[1].imagen})`,
+                  backgroundColor: saborSeleccionado[1].color
+                }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
               />
-            )}
-          </div>
-        )}
+              {/* Toppings para esta bola */}
+              {toppingSeleccionados[1] && (
+                <motion.img
+                  src={toppingSeleccionados[1].imagen}
+                  alt={toppingSeleccionados[1].nombre}
+                  className="topping-item topping-izquierda"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.5 }}
+                />
+              )}
+            </div>
+          )}
 
-        {/* Grupo Bola Superior Derecha + Toppings */}
-        {saborSeleccionado[2] && (
-          <div className="bola-container" style={{ zIndex: 1 }}>
-            <motion.div
-              className="sabor-bola bola-superior-derecha"
-              style={{
-                backgroundImage: `url(${saborSeleccionado[2].imagen})`,
-                backgroundColor: saborSeleccionado[2].color
-              }}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.2 }}
-            />
-            {/* Toppings para esta bola */}
-            {toppingSeleccionados[2] && (
-              <motion.img
-                src={toppingSeleccionados[2].imagen}
-                alt={toppingSeleccionados[2].nombre}
-                className="topping-item topping-derecha"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.6 }}
+          {/* Grupo Bola Superior Derecha + Toppings */}
+          {saborSeleccionado[2] && (
+            <div className="bola-container" style={{ zIndex: 1 }}>
+              <motion.div
+                className="sabor-bola bola-superior-derecha"
+                style={{
+                  backgroundImage: `url(${saborSeleccionado[2].imagen})`,
+                  backgroundColor: saborSeleccionado[2].color
+                }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
               />
-            )}
-          </div>
-        )}
-      </div>
+              {/* Toppings para esta bola */}
+              {toppingSeleccionados[2] && (
+                <motion.img
+                  src={toppingSeleccionados[2].imagen}
+                  alt={toppingSeleccionados[2].nombre}
+                  className="topping-item topping-derecha"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.6 }}
+                />
+              )}
+            </div>
+          )}
+        </div>
       </div>
     );
   };
@@ -333,12 +353,13 @@ const IceCreamCustomizer = () => {
             Reiniciar
           </button>
           <button 
+            onClick={handleGuardar}
             className={`accion-btn guardar-btn ${
               !(saboresCompletos && toppingsCompletos) ? "disabled" : ""
             }`}
             disabled={!(saboresCompletos && toppingsCompletos)}
           >
-            Guardar
+            Agregar al carrito
           </button>
 
           <div className="total-container">
@@ -354,3 +375,4 @@ const IceCreamCustomizer = () => {
   );
 };
 export default IceCreamCustomizer;
+
