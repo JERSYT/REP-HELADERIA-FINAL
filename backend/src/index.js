@@ -8,6 +8,9 @@ import pedidosRoutes from "./routes/pedidos.routes.js";
 import inventarioRoutes from "./routes/inventario.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
+
+
 
 import cors from "cors";
 
@@ -35,6 +38,7 @@ app.use("/api", pedidosRoutes); // Ruta de pedidos
 app.use("/api", inventarioRoutes); // Ruta de inventario
 app.use("/api", profileRoutes); // Ruta de inventario
 app.use("/api", adminRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // Conexión a la base de datos
 connectDB();

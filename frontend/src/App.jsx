@@ -21,6 +21,9 @@ import Usuarios from "./components/Usuarios.jsx";
 import Inventario from "./components/Inventario.jsx";
 import IceCreamCustomizer from "./components/IceCreamCustomizer.jsx";
 import RealizarPedido from "./components/RealizarPedido.jsx";
+import AdminDashboard from "./components/AdminDashboard.jsx";
+import AdminLayout from "./components/AdminLayout.jsx";
+
 
 import { useAuth } from "./context/AuthContext";
 
@@ -94,23 +97,19 @@ function AppContent() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<p>Selecciona una opción del menú.</p>} />
+          <Route path="inventario" element={<Inventario />} />
+          <Route path="usuarios" element={<Usuarios />} />
+        </Route>
 
-        <Route
-          path="/admin/usuarios"
-          element={
-            <ProtectedRoute>
-              <Usuarios />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/inventario"
-          element={
-            <ProtectedRoute>
-              <Inventario />
-            </ProtectedRoute>
-          }
-        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

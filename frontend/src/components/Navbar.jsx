@@ -224,6 +224,14 @@ const Navbar = () => {
                 </div>
               )}
             </li>
+            {auth.isAuthenticated && auth.user?.role === "admin" && (
+              <li>
+                <Link className="link-12" to="/admin">
+                  ADMIN
+                </Link>
+              </li>
+            )}
+
 
             {/* LOGIN */}
             {auth.isAuthenticated ? (

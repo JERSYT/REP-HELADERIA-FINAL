@@ -1,3 +1,4 @@
+// middlewares/isAdmin.js
 import User from "../models/user.model.js";
 
 export const isAdmin = async (req, res, next) => {
