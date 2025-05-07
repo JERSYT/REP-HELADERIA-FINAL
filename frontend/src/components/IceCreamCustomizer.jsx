@@ -107,19 +107,19 @@ const IceCreamCustomizer = () => {
     if (saboresCompletos && toppingsCompletos) {
       const productoPersonalizado = {
         Personalizado: true,
-        Sabores: saborSeleccionado.map((s, index) => ({ ...s, id: index + 1000, nombre: s.nombre })),
-        Toppings: toppingSeleccionados.map((t, index) => ({ ...t, id: index + 2000, nombre: t.nombre })),
+        Sabores: saborSeleccionado.map((s) => ({ ...s, id: `${s.nombre}-${Date.now()}` })),
+        Toppings: toppingSeleccionados.map((t) => ({ ...t, id: `${t.nombre}-${Date.now()}` })),
         Cantidad: 1,
         Precio: calcularTotal(),
         Presentacion: presentacionSeleccionada.nombre,
         Imagen: Galleta, // Imagen fija para el carrito
-        // Generar un id para el producto personalizado mismo, puede ser combinación o único
         id: Date.now(), // id único basado en timestamp para evitar colisiones
       };
       agregarProducto(productoPersonalizado);
       resetSeleccion();
     }
   };
+  
 
   // Renderizado visual del helado
 

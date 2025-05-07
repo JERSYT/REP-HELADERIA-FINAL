@@ -211,6 +211,14 @@ const RealizarPedido = () => {
                       Precio,
                       Cantidad,
                     } = producto;
+
+                    const nombresSabores = Sabores
+                      ? Sabores.map((sabor) => sabor.nombre).join(", ")
+                      : "";
+                    const nombresToppings = Toppings
+                      ? Toppings.map((topping) => topping.nombre).join(", ")
+                      : "";
+
                     return (
                       <tr className="navegacion-carritoProducto" key={index}>
                         <td>
@@ -218,8 +226,11 @@ const RealizarPedido = () => {
                         </td>
                         <td>
                           <p>
-                            {Producto} {Sabores ? `(${Sabores})` : ""}{" "}
-                            {Toppings ? `+ ${Toppings}` : ""}
+                            {producto.Personalizado
+                              ? "Helado personalizado"
+                              : Producto}{" "}
+                            {nombresSabores ? `(${nombresSabores})` : ""}{" "}
+                            {nombresToppings ? ` + ${nombresToppings}` : ""}
                           </p>
                           <p>{formatearDinero(Precio, "COP")}</p>
                         </td>
@@ -251,3 +262,4 @@ const RealizarPedido = () => {
 };
 
 export default RealizarPedido;
+

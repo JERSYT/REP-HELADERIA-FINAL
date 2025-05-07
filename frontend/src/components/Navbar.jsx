@@ -4,7 +4,7 @@ import "../styles/Navbar.css";
 import Logo from "../img/logo.png";
 import $ from "jquery";
 import { useEffect, useState, useContext } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaUser  } from "react-icons/fa";
 import { BsCart2, BsTrash3 } from "react-icons/bs";
 import { useAuth } from "../context/AuthContext";
 import { CarritoContext } from "../context/CarritoContext";
@@ -28,15 +28,16 @@ const Navbar = () => {
 
   const manejarCambioCantidad = (index, nuevaCantidad) => {
     if (nuevaCantidad < 1) return eliminarProducto(index);
-    const nuevo = carrito.map((item, i) =>
-      i === index
+    const nuevo = carrito.map((item, i) => {
+      const cantidadValida = !isNaN(nuevaCantidad) && nuevaCantidad > 0;
+      return i === index
         ? {
             ...item,
-            Cantidad: nuevaCantidad,
-            Subtotal: nuevaCantidad * item.Precio,
+            Cantidad: cantidadValida ? nuevaCantidad : item.Cantidad,
+            Subtotal: cantidadValida ? nuevaCantidad * item.Precio : item.Subtotal,
           }
-        : item
-    );
+        : item;
+    });
     setCarrito(nuevo);
   };
 
@@ -125,7 +126,7 @@ const Navbar = () => {
                 <span className="link-12 material-symbols-outlined">
                   g_translate
                 </span>
-              </div>
+                </div>
             </div>
           </ul>
         </div>
@@ -171,12 +172,12 @@ const Navbar = () => {
                     <table>
                       <tbody>
                         {carrito.map((p, i) => (
-                          <tr key={p.Producto + i}>
+                          <tr key={p.id ?? `${p.Personalizado ? "personalizado" : p.Producto}-${i}`}>
                             <td>
-                              <img src={p.Imagen} width="40" alt={p.Producto} />
+                              <img src={p.Imagen} width="40" alt={p.Personalizado ? "Helado personalizado" : p.Producto} />
                             </td>
                             <td>
-                            {p.Personalizado ? "Helado personalizado " : p.Producto} x {p.Tamaño}
+                              {p.Personalizado ? "Helado personalizado" : p.Producto} x {p.Tamaño || ""}
                               <br />
                               <small>{formatearDinero(p.Precio)}</small>
                             </td>
