@@ -79,11 +79,17 @@ const RealizarPedido = () => {
   const manejarEnvio = (e) => {
     e.preventDefault();
     if (validarFormulario()) {
-      Swal.fire(
-        "Pedido realizado",
-        "Tu pedido ha sido enviado exitosamente.",
-        "success"
-      );
+            Swal.fire({
+        title: "Pedido realizado",
+        text: "Tu pedido ha sido enviado exitosamente.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+        customClass: {
+          confirmButton: "btn-confirmacion-pedido"
+        },
+        buttonsStyling: false
+      });
+
       vaciarCarrito();
       navigate("/gracias");
     }
