@@ -174,7 +174,7 @@ const Navbar = () => {
                         {carrito.map((p, i) => (
                           <tr key={p.id ?? `${p.Personalizado ? "personalizado" : p.Producto}-${i}`}>
                             <td>
-                              <img src={p.Imagen} width="40" alt={p.Personalizado ? "Helado personalizado" : p.Producto} />
+                              <img src={p.Imagen} alt={p.Personalizado ? "Helado personalizado" : p.Producto} />
                             </td>
                             <td>
                               {p.Personalizado ? "Helado personalizado" : p.Producto} x {p.Tamaño || ""}

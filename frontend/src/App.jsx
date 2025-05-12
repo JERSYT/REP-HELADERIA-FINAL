@@ -23,6 +23,7 @@ import IceCreamCustomizer from "./components/IceCreamCustomizer.jsx";
 import RealizarPedido from "./components/RealizarPedido.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
 import AdminLayout from "./components/AdminLayout.jsx";
+import Gracias from "./components/gracias.jsx";
 
 
 import { useAuth } from "./context/AuthContext";
@@ -63,12 +64,15 @@ function AppContent() {
 
   if (isLoading) return <LoadingScreen />;
 
-  const hideFooterRoutes = ["/admin/inventario", "/admin/usuarios"];
-  const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
+  const hideLayoutRoutes = ["/admin/inventario", "/admin/usuarios", "/gracias"];
+const currentPath = location.pathname.toLowerCase();
+const shouldHideLayout = hideLayoutRoutes.includes(currentPath);
+
 
   return (
     <div>
-      <Navbar />
+      {!shouldHideLayout && <Navbar />}
+
       <Routes>
         <Route
           path="/"
@@ -88,6 +92,7 @@ function AppContent() {
         <Route path="/galeria" element={<Galeria />} />
         <Route path="/icecreamcustomizer" element={<IceCreamCustomizer />} />
         <Route path="/realizarPedido" element={<RealizarPedido />} />
+        <Route path="/gracias" element={<Gracias />} />
 
         <Route
           path="/profile"
@@ -110,13 +115,14 @@ function AppContent() {
           <Route path="usuarios" element={<Usuarios />} />
         </Route>
 
-
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {!shouldHideFooter && <Footer />}
+
+      {!shouldHideLayout && <Footer />}
     </div>
   );
 }
+
 
 // Exporta App con el BrowserRouter externo
 export default function App() {

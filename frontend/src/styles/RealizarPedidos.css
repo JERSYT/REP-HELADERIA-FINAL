@@ -211,6 +211,24 @@
   color: #333;
 }
 
+.btn-confirmacion-pedido {
+  background-color: #FA52A0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-confirmacion-pedido:hover {
+  background-color: #e14690; /* tono más oscuro al hacer hover */
+}
+
+
 /* Layout más balanceado para pantallas grandes */
 @media (min-width: 1024px) {
   .realizarPedido-contenedor {
