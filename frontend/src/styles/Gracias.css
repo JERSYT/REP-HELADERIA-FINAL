@@ -1,0 +1,37 @@
+.gracias-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fafafa;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(250, 82, 160, 0.1);
+}
+
+.gracias-container h1 {
+  color: #a180e1;
+  margin-bottom: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 5rem;
+  font-weight: 800;
+}
+
+.btn-inicio {
+  background-color: #fa52a0;
+  color: white;
+  padding: 0.75rem 2rem;
+  font-size: 1.25rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.btn-inicio:hover {
+  background-color: #e1418d;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { motion } from "framer-motion";
 import "../styles/IceCreamCustomizer.css";
 import { CarritoContext } from "../context/CarritoContext";
@@ -15,9 +15,12 @@ import Gusanitos from "../img/Personalizado/gusanitos.webp";
 import Almendras from "../img/Personalizado/almendras.webp";
 import Arandanos from "../img/Personalizado/arandanos.webp";
 import Galleta from "../img/Personalizado/vasogalleta.webp";
-import Vaso from "../img/Personalizado/vaso.webp";
+import html2canvas from "html2canvas";
+
+
 
 const IceCreamCustomizer = () => {
+  const heladoRef = useRef(null);
   const { agregarProducto } = useContext(CarritoContext);
 
   const Sabores = [
@@ -112,12 +115,20 @@ const IceCreamCustomizer = () => {
         Cantidad: 1,
         Precio: calcularTotal(),
         Presentacion: presentacionSeleccionada.nombre,
-        Imagen: Galleta, // Imagen fija para el carrito
         id: Date.now(), // id único basado en timestamp para evitar colisiones
       };
-      agregarProducto(productoPersonalizado);
-      resetSeleccion();
-    }
+
+
+      html2canvas(heladoRef.current).then((canvas) => {
+        const imageUrl = canvas.toDataURL();  // Aquí obtenemos el DataURL de la imagen
+        productoPersonalizado.Imagen = imageUrl;  // Asignamos la imagen generada al producto
+
+        agregarProducto(productoPersonalizado);  // Guardamos el producto en el carrito
+        resetSeleccion();
+      }).catch((error) => {
+      console.error('Error al generar la imagen del helado:', error);
+      });
+  }
   };
   
 
@@ -283,9 +294,9 @@ const IceCreamCustomizer = () => {
             {/* Mensaje de validación */}
             {!toppingsCompletos && (
               <div className="mensaje-validacion">
-                {toppingSeleccionados.length < 2 
-                  ? `Selecciona ${2 - toppingSeleccionados.length} más`
-                  : "¡Perfecto! 2 toppings seleccionados"}
+                {toppingSeleccionados.length < 3 
+                  ? `Selecciona ${3 - toppingSeleccionados.length} más`
+                  : "¡Perfecto! 3 toppings seleccionados"}
               </div>
             )}
 
@@ -344,7 +355,7 @@ const IceCreamCustomizer = () => {
             </div>
           </div>
           {/* Presentación (Cono o Vaso) */}
-          <div className="ice-cream-previa">
+          <div className="ice-cream-previa" ref={heladoRef}>
             {renderHeladoVisual()}
           </div>
             
@@ -359,7 +370,7 @@ const IceCreamCustomizer = () => {
             }`}
             disabled={!(saboresCompletos && toppingsCompletos)}
           >
-            Agregar al carrito
+            Agregar
           </button>
 
           <div className="total-container">
