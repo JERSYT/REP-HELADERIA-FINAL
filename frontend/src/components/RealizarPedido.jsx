@@ -199,14 +199,15 @@ const RealizarPedido = () => {
           <h2 className="realizarPedido-carritoTitulo">Resumen de tu pedido</h2>
           <div className="realizarPedido-carritoContenido">
             <table>
-              <tbody className="realizarPedido-carritoTbody">
+              <thead>
                 <tr className="navegacion-carritoEncabezado">
-                  <td className="primera-colCarrito" colSpan="2">
-                    Producto
-                  </td>
+                  <td> </td> {/* Columna vacía para la imagen */}
+                  <td>Producto</td>
                   <td className="cantidad">Cantidad</td>
                   <td className="subtotal">Subtotal</td>
                 </tr>
+              </thead>
+              <tbody className="realizarPedido-carritoTbody">
                 {carrito.length > 0 ? (
                   carrito.map((producto, index) => {
                     const {
@@ -216,6 +217,7 @@ const RealizarPedido = () => {
                       Toppings,
                       Precio,
                       Cantidad,
+                      Personalizado
                     } = producto;
 
                     const nombresSabores = Sabores
@@ -227,18 +229,24 @@ const RealizarPedido = () => {
 
                     return (
                       <tr className="navegacion-carritoProducto" key={index}>
-                        <td>
-                          <img src={Imagen} alt={Producto} width="60" />
+                        <td className="columna-imagen">
+                          <img 
+                            src={Imagen} 
+                            alt={Producto} 
+                            className="imagen-producto"
+                          />
                         </td>
-                        <td>
-                          <p>
-                            {producto.Personalizado
-                              ? "Helado personalizado"
-                              : Producto}{" "}
-                            {nombresSabores ? `(${nombresSabores})` : ""}{" "}
-                            {nombresToppings ? ` + ${nombresToppings}` : ""}
+                        <td className="descripcion-producto">
+                          <p className="nombre-producto">
+                            {Personalizado ? "Helado personalizado" : Producto}
                           </p>
-                          <p>{formatearDinero(Precio, "COP")}</p>
+                          {nombresSabores && (
+                            <p className="detalle-sabores">
+                              {nombresSabores}
+                              {nombresToppings && ` + ${nombresToppings}`}
+                            </p>
+                          )}
+
                         </td>
                         <td className="realizarPedido-cantidad">{Cantidad}</td>
                         <td className="subtotal">
@@ -258,7 +266,7 @@ const RealizarPedido = () => {
           {carrito.length > 0 && (
             <div className="realizarPedido-carritoTotal">
               <p className="totalLabel">Total A Pagar:</p>
-              <p className="totalLabel">{formatearDinero(calcularTotal(), "COP")}</p>
+              <p className="total-precio">{formatearDinero(calcularTotal(), "COP")}</p>
             </div>
           )}
         </div>

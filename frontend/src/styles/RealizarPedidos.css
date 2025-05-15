@@ -1,4 +1,3 @@
-
 .realizarPedido {
   color: #f9f9f9;
   font-family: "Poppins", sans-serif;
@@ -6,13 +5,14 @@
   position: relative;
   z-index: 1;
   background-image: url("../img/fondo-pizarra-helado-dibujado-mano.jpg");
-  background-size: cover; /* O usa 'contain' si quieres que se ajuste */
+  background-size: cover;
   background-repeat: repeat;
   background-position: center;
-  background-attachment: fixed; /* Efecto tipo mural al hacer scroll */
-  color: #fff; /* Asegúrate de que el texto contraste bien */
+  background-attachment: fixed;
+  color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-
 
 .realizarPedido-contenedor {
   display: flex;
@@ -31,6 +31,9 @@
   width: 100%;
   max-width: 600px;
   font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .realizarPedido-contenedor_titulo {
@@ -47,6 +50,7 @@
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .realizarPedido-contenedor_titulo_iconoVolver {
@@ -123,78 +127,102 @@
   color: #FA52A0;
 }
 
+/* ESTILOS MEJORADOS PARA LA TABLA CON COLUMNA DE IMAGEN */
 .realizarPedido-carritoContenido table {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
-  border-radius: 12px;
-  overflow: hidden;
+  margin-bottom: 1.5rem;
+  font-family: "Poppins", sans-serif;
 }
 
-.realizarPedido-carritoContenido img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.realizarPedido-carritoTbody td {
-  padding: 0.5rem;
-  vertical-align: top;
-  font-size: 0.95rem;
-}
-
+/* Encabezado con espacio para la columna de imagen */
 .navegacion-carritoEncabezado {
-  background-color: #f3f3f3;
-  font-weight: bold;
-  text-align: left;
-  font-size: 1rem;
+  border-bottom: 2px solid #FA52A0;
+}
+
+.navegacion-carritoEncabezado td:first-child {
+  width: 60px; /* Ancho para la columna de imagen */
 }
 
 .navegacion-carritoEncabezado td {
-  font-weight: bold;
-  background-color: #f1f1f1;
-  border-bottom: 2px solid #ccc;
+  padding: 12px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
 }
 
+/* Columna de imagen */
+.columna-imagen {
+  width: 60px;
+  padding-right: 0;
+}
+
+.imagen-producto {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Filas de productos */
 .navegacion-carritoProducto {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+}
+
+.navegacion-carritoProducto:hover {
+  background-color: #fafafa;
 }
 
 .navegacion-carritoProducto td {
-  padding: 0.8rem;
-  vertical-align: top;
+  padding: 12px 8px;
+  vertical-align: middle;
 }
 
-.navegacion-carritoProducto img {
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+/* Estilos para el texto */
+.nombre-producto {
+  font-weight: 500;
+  color: #333;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 1rem;
 }
 
-.navegacion-carritoProducto p {
-  margin: 0.2rem 0;
-  color: #444;
-  font-size: 0.95rem;
+.detalle-sabores {
+  font-size: 0.6rem;
+  color: #666;
+  font-style: italic;
 }
 
-.realizarPedido-cantidad,
-.subtotal {
-  text-align: center;
+.precio-producto, .subtotal {
   font-weight: 500;
   color: #333;
 }
 
+/* Total */
 .realizarPedido-carritoTotal {
   margin-top: 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #A180E1;
+  text-align: right;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
   padding-top: 1rem;
-  border-top: 2px solid #eee;
+  border-top: 1px solid #eee;
+}
+
+.total-precio {
+  color: #FA52A0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.totalLabel {
+  color: #000;
+  font-weight: 700;
 }
 
 .realizarPedido-carritoContenedor {
@@ -207,10 +235,6 @@
   padding: 2rem;
 }
 
-.totalLabel {
-  color: #333;
-}
-
 .btn-confirmacion-pedido {
   background-color: #FA52A0;
   color: white;
@@ -219,15 +243,13 @@
   padding: 10px 20px;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  font-style: normal;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .btn-confirmacion-pedido:hover {
-  background-color: #e14690; /* tono más oscuro al hacer hover */
+  background-color: #e14690;
 }
-
 
 /* Layout más balanceado para pantallas grandes */
 @media (min-width: 1024px) {
@@ -241,5 +263,31 @@
 
   .realizarPedido-carritoContenedor {
     flex: 1.2;
+  }
+}
+
+/* Estilos responsivos para la tabla */
+@media (max-width: 768px) {
+  .columna-imagen {
+    width: 40px;
+  }
+  
+  .imagen-producto {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .navegacion-carritoEncabezado td,
+  .navegacion-carritoProducto td {
+    padding: 8px 5px;
+    font-size: 0.8rem;
+  }
+  
+  .nombre-producto {
+    font-size: 0.9rem;
+  }
+  
+  .detalle-sabores {
+    font-size: 0.75rem;
   }
 }
