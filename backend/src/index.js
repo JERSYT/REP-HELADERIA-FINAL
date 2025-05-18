@@ -44,6 +44,6 @@ app.use("/api/dashboard", dashboardRoutes);
 connectDB();
 
 // Inicia el servidor en el puerto 5000
-app.listen(5000, () => {
-  console.log("Servidor corriendo en http://localhost:5000");
+app.listen(4000, () => {
+  console.log("Servidor corriendo en http://localhost:4000");
 });
