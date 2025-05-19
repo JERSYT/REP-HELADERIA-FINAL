@@ -173,33 +173,21 @@ const Navbar = () => {
                       <tbody>
                         {carrito.map((p, i) => (
                           <tr key={p.id ?? `${p.Personalizado ? "personalizado" : p.Producto}-${i}`}>
-                            <td>
+                            <td className="col-imagen">
                               <img src={p.Imagen} alt={p.Personalizado ? "Helado personalizado" : p.Producto} />
                             </td>
-                            <td>
-                              {p.Personalizado ? "Helado personalizado" : p.Producto} x {p.Tamaño || ""}
+                            <td className="col-titulo">
+                              {p.Personalizado ? "Helado personalizado" : p.Producto} {p.Tamaño || ""}
                               <br />
                               <small>{formatearDinero(p.Precio)}</small>
                             </td>
-                            <td>
-                              <button
-                                onClick={() =>
-                                  manejarCambioCantidad(i, p.Cantidad - 1)
-                                }
-                              >
-                                -
-                              </button>
+                            <td className="col-cantidad">
+                              <button onClick={() => manejarCambioCantidad(i, p.Cantidad - 1)}>-</button>
                               {p.Cantidad}
-                              <button
-                                onClick={() =>
-                                  manejarCambioCantidad(i, p.Cantidad + 1)
-                                }
-                              >
-                                +
-                              </button>
+                              <button onClick={() => manejarCambioCantidad(i, p.Cantidad + 1)}>+</button>
                             </td>
-                            <td>{formatearDinero(p.Subtotal)}</td>
-                            <td>
+                            <td className="col-subtotal">{formatearDinero(p.Subtotal)}</td>
+                            <td className="col-eliminar">
                               <button onClick={() => eliminarProducto(i)}>
                                 <BsTrash3 />
                               </button>

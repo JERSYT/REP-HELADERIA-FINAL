@@ -216,17 +216,21 @@ img {
   display: flex;
   border-bottom: 1px solid #eee;
   align-items: center;
-  justify-content: space-between; /* Alineación para evitar que las imágenes se superpongan */
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .carrito-dropdown table td {
   padding: 0.5rem;
-  vertical-align: middle;
+  height: fit-content;
+  display: flex;
+  align-items: center;
   text-align: center;
   word-break: normal;
-  white-space: nowrap;
+  white-space: normal !important;
   overflow: visible;
   text-overflow: unset;
+  overflow-wrap: break-word;      /* ✅ Evita desbordamientos largos */
 }
 
 .carrito-dropdown table tr td {
@@ -235,29 +239,34 @@ img {
   align-items: center;
 }
 
-.carrito-dropdown table td:nth-child(1) { /* Imagen */
-  width: 18%;
-}
-.carrito-dropdown table td:nth-child(2) { /* Nombre del producto */
-  width: 42%;
-  white-space: normal; /* Permite saltos de línea si es necesario */
-  word-break: break-word; /* Rompe solo si no cabe */
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Máximo 2 líneas */
-  line-clamp: 2; /* Estándar para compatibilidad */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.carrito-dropdown table td:nth-child(3) { /* Contador -/+ */
-  width: 15%;
-}
-.carrito-dropdown table td:nth-child(4) { /* Precio */
-  width: 15%;
-}
-.carrito-dropdown table td:nth-child(5) { /* Basurero */
-  width: 10%;
+.carrito-dropdown .col-imagen {
+  flex: 0 0 60px;
+  justify-content: center;
 }
 
+.carrito-dropdown .col-titulo {
+  flex: 1.8;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding-right: 10px;
+  word-break: break-word;
+}
+
+.carrito-dropdown .col-cantidad {
+  flex: 0.8;
+  justify-content: center;
+}
+
+.carrito-dropdown .col-subtotal {
+  flex: 0.8;
+  justify-content: center;
+}
+
+.carrito-dropdown .col-eliminar {
+  flex: 0.5;
+  justify-content: center;
+}
 
 /* Encabezado de tabla */
 .carrito-dropdown table tr.header td {
