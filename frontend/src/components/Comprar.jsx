@@ -39,7 +39,22 @@ const Comprar = () => {
       Precio: precioNumero,
       Cantidad: cantidad,
     });
-    Swal.fire("Agregado", "Producto agregado al carrito", "success");
+          Swal.fire({
+        title: 'Agregado',
+        text: 'Producto agregado al carrito',
+        icon: 'success',
+        background: '#fff',
+        iconColor: '#fa52a0',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#a180e1',
+        customClass: {
+          popup: 'swal-carrito-popup',
+          title: 'swal-carrito-title',
+          confirmButton: 'swal-carrito-button',
+          htmlContainer: 'swal-carrito-text',
+        }
+      });
+
     // Opcional: redirigir al carrito
     // navigate("/realizarPedido");
   };

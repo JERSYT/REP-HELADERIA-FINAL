@@ -105,3 +105,78 @@
     background-color: #ef4444;
   }
   
+/* Estilo para formularios SweetAlert2 */
+.swal2-popup {
+  font-family: 'Poppins', sans-serif !important;
+  border-radius: 16px !important;
+  padding: 2rem !important;
+  max-width: 420px;
+  width: 90vw !important;
+  box-sizing: border-box !important;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px #A180E1 inset;
+  overflow-x: hidden !important; /* Solución clave */
+}
+
+.swal2-title {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+  margin-bottom: 1rem !important;
+}
+
+.swal2-input,
+.swal2-select {
+  font-family: 'Poppins', sans-serif !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1rem !important;
+  margin: 0.5rem 0 !important;
+  width: calc(100% - 2px) !important;
+  background-color: #f9fafb !important;
+  color: #111827;
+  box-sizing: border-box !important;
+}
+
+.swal2-input:focus,
+.swal2-select:focus {
+  border-color: #A180E1 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(161, 128, 225, 0.3) !important;
+}
+
+.swal2-actions {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+  margin-top: 1rem !important;
+}
+
+.swal2-confirm {
+  background-color: #22c55e !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 0.6rem 1.5rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  color: white !important;
+}
+
+.swal2-cancel {
+  background-color: #f87171 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 0.6rem 1.5rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  color: white !important;
+}
+
+.swal2-confirm:hover {
+  background-color: #16a34a !important;
+}
+
+.swal2-cancel:hover {
+  background-color: #ef4444 !important;
+}
