@@ -23,7 +23,7 @@ import IceCreamCustomizer from "./components/IceCreamCustomizer.jsx";
 import RealizarPedido from "./components/RealizarPedido.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
 import AdminLayout from "./components/AdminLayout.jsx";
-import Gracias from "./components/gracias.jsx";
+import Gracias from "./components/Gracias.jsx";
 
 
 import { useAuth } from "./context/AuthContext";
